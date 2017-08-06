@@ -1,0 +1,31 @@
+{
+  "name": "hyf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:nuxt": "nuxt",
+    "dev:server": "kib",
+    "generate": "npm-run-all --parallel --race generate:*",
+    "generate:server": "kib generate",
+    "generate:nuxt": "nuxt generate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nuxtjs/proxy": "^1.1.1",
+    "appear": "^1.0.1",
+    "axios": "^0.16.2",
+    "buefy": "^0.4.6",
+    "kibbeling": "^1.0.4",
+    "nuxt": "^1.0.0-rc3",
+    "scrollmonitor": "^1.2.3",
+    "verge": "^1.10.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2"
+  }
+}
