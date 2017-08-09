@@ -35,6 +35,31 @@
        if (!!this.video) this.video.pauseVideo()
      },
 
+     playFullScreenVideo () {
+       this.video.stopVideo()
+       this.video.setVolume(80)
+       let iframe = this.$el.querySelector('iframe')
+       let requestFullScreen = iframe.requestFullScreen ||
+                               iframe.mozRequestFullScreen ||
+                               iframe.webkitRequestFullScreen
+
+       const exitHandler = () => {
+         var fullScreenElement = document.fullScreen ||
+                                 document.mozFullScreen ||
+                                 document.webkitIsFullScreen
+         if (!fullScreenElement) this.video.setVolume(0)
+       }
+
+       iframe.addEventListener('webkitfullscreenchange', exitHandler);
+       iframe.addEventListener('mozfullscreenchange', exitHandler);
+       iframe.addEventListener('fullscreenChange', exitHandler);
+       iframe.addEventListener('MSFullscreenChange', exitHandler);
+
+       requestFullScreen.bind(iframe)()
+
+       this.video.playVideo()
+     },
+
      addVideo () {
        return youtube(this.$refs.video, Object.assign({
          events: {

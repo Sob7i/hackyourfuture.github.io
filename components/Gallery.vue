@@ -57,13 +57,11 @@
    },
    methods: {
      play () {
-       console.log('gallery play')
-       this.tick = new anim(this.next, 3000)
+       if (!this.tick) this.tick = new anim(this.next, this.interval)
      },
      pause () {
-       console.log('gallery pause', this.tick)
-       this.tick.pause()
-       delete this.tick
+       if (!!this.tick) this.tick.pause()
+       this.tick = null
      },
      beforeDestroy () {
        this.pause()

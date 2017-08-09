@@ -1,8 +1,13 @@
 <template>
   <div>
-    <svg version="1.1" :width="width" :height="height" xmlns="http://www.w3.org/2000/svg" :viewbox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid slice">
-      <g transform="translate(-50,-50)">
-        <path v-for="item in paths" :fill="item.color" :d="getPathString(item.vertex)"/>
+    <svg version="1.1" :width="width" xmlns="http://www.w3.org/2000/svg" :viewbox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern v-for="img, key in imgs" :id="`bg_svg_${key}`" x="0" y="0" width="1" height="1">
+          <image :width="img.width" :height="img.height" y="0" x="-30" :xlink:href="img.url"/>
+        </pattern>
+      </defs>
+      <g>
+        <path v-for="item in paths" :fill="item.fill" :d="getPathString(item.vertex)"/>
       </g>
     </svg>
   </div>
@@ -24,13 +29,15 @@
    props: {
      animate: { default: false },
      interval: { default: 150 },
+     orientation: { default: 0 },
      colors: {
-       default: () => Colors.DarkScale,
+       default: () => Colors.Custom,
      },
      width: { default: 0 },
      height: { default: 0 },
      size: { default: 100 },
      margin: { default: 50 },
+     imgs: { default: () => [] }
    },
    data() {
      return {
@@ -66,18 +73,51 @@
        const size = this.size
        const columns = Math.ceil(this.width / size)
        const rows = (Math.ceil(this.height / size) * 2) + 2
+
        for (let row = 0; row <= rows; row++) {
          for (let column = 0; column <= columns; column++) {
            let y = this.size * row / 2
            let x = this.size * column
-           const color = this.colors[rand(this.colors.length)]
-           x = x + this.margin - this.size
-           y = y + this.margin - this.size
-           paths.push({ vertex: this.getVertex(size, { x, y }, row % 2 ? 180 : 0), color })
+           let orientation = this.orientation === 0 ? ( row % 2 ? 180 : 0 ) : ( row % 2 ? 90 : 270 )
+           let fill = this.fill(row, column)
+
+           if ( this.orientation === 0 ) {
+             x = (x + this.margin) - this.size
+             y = (y + this.margin) - this.size
+           } else {
+             x = row % 2 ? x - (this.size - this.margin) / 2 : x + this.margin / 2
+             x = x - this.size
+             y = row % 2 ? y - this.size / 2 : y
+           }
+
+           paths.push({ vertex: this.getVertex(size, { x, y }, orientation ), fill })
          }
        }
 
        return paths
+     },
+
+     getCords() {
+       this.allCords = this.allCords || this.imgs.reduce((prev, next) => prev.concat(next.cords || []), [])
+       return this.allCords
+     },
+
+     fill(row, column) {
+       let hasCords = this.getCords().filter(obj => obj[0] === row && obj[1] === column).length > 0
+
+       if (hasCords) {
+         let index = this.imgs.findIndex(el => {
+           let arr = el.cords.filter(cord => {
+             return cord[0] === row && cord[1] === column
+           })
+             return arr.length > 0
+         })
+
+         return `url(#bg_svg_${index})`
+       }
+
+       return this.colors[rand(this.colors.length)]
+
      },
 
      getVertex(size, position, rotation) {

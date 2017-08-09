@@ -1,7 +1,1 @@
-asdasdasd
-
-
-asdasdasdasd
-
-
-asdsadsadas
+Six-months programming school for refugees.
