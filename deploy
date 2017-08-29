@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+const gh = require('gh-pages')
+
+gh.publish('dist', {
+  branch: 'master',
+  repo: `https://${process.env.GH_TOKEN}@github.com/Ideabile/ideabile.github.io.git`,
+  user: {
+    name: 'ideabile-ci',
+    email: 'drone@ideabile.com'
+  }
+}, (err) => {
+   console.log(err);
+});

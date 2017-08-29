@@ -1,3 +1,4 @@
+import HexToRgb from './../functions/hexToRgb'
 const DarkScale = [...Array(9)].map((v, i) => `rgba(0,0,0,0.${i})`)
 
 const LightScale = [...Array(9)].map((v, i) => `rgba(255,255,255,0.${i})`)
@@ -28,8 +29,14 @@ const Custom = [
   "#574B99"
 ]
 
+const CustomLighter = Custom.map(HexToRgb).map(rgba => {
+  rgba[3] = 0.5
+  return `rgba(${rgba.join(',')})`
+})
+
 export default {
   DarkScale,
   LightScale,
-  Custom
+  Custom,
+  CustomLighter
 }

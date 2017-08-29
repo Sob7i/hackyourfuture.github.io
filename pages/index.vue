@@ -299,15 +299,6 @@
      playFullScreenVideo () {
        this.$refs['anim_2'].playFullScreenVideo()
      },
-
-     play ( ref ) {
-       ref.play()
-     },
-
-     pause ( ref ) {
-       ref.pause()
-     },
-
      tw () {
        return !typeof window === 'undefined' ? window.innerWidth : this.tWidth
      },
