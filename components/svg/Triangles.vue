@@ -31,7 +31,7 @@
      interval: { default: 150 },
      orientation: { default: 0 },
      colors: {
-       default: () => Colors.Custom,
+       default: () => Colors.CustomLighter,
      },
      width: { default: 0 },
      height: { default: 0 },
@@ -80,14 +80,16 @@
            let x = this.size * column
            let orientation = this.orientation === 0 ? ( row % 2 ? 180 : 0 ) : ( row % 2 ? 90 : 270 )
            let fill = this.fill(row, column)
+           let doubleSize = this.size * 2
+           let halfSize = this.size / 2
 
            if ( this.orientation === 0 ) {
              x = (x + this.margin) - this.size
              y = (y + this.margin) - this.size
            } else {
-             x = row % 2 ? x - (this.size - this.margin) / 2 : x + this.margin / 2
-             x = x - this.size
-             y = row % 2 ? y - this.size / 2 : y
+             x = x + this.margin / 2
+             x = row % 2 ? x - this.size : x - halfSize
+             y = row % 2 ? y - halfSize : y - doubleSize
            }
 
            paths.push({ vertex: this.getVertex(size, { x, y }, orientation ), fill })
