@@ -1,16 +1,16 @@
 <template>
   <div>
+    <Menu :style="{ opacity: menuOpacity }" />
 
     <Hero class="hero--main">
       <div slot="background">
         <Gallery ref="anim_0" :images="images" class="gallery" />
-        <Triangles ref="anim_1" :width="tw()" :height="th()" :colors="Colors.DarkScale" animate="true" class="bg main--triangles" />
+        <Triangles ref="anim_1" :width="tw()" :size="200" :height="th()" :colors="Colors.MainLighter" animate="true" class="bg main--triangles" />
         <div class="bg" style="background-color: rgba(0,0,0,0.5); box-shadow: 200px rgba(0,0,0,0.8)"></div>
       </div>
-      <div slot="content">
-        <img alt="HackYourFuture" src="/logo.svg" class="logo"/>
+      <div slot="content" class="has-text-centered">
         <div class="about" v-html="about"></div>
-        <div class="has-text-centered">
+        <div >
           <MainActions />
         </div>
       </div>
@@ -26,34 +26,39 @@
       </div>
     </Hero>
 
+
     <Hero class="hero--what">
       <div slot="background">
-        <div class="bg bg__img" style="background-image: url('/gallery/01.jpg');"></div>
-        <div class="bg has-bg-rotate" :style="`background-color: ${Colors.Custom[0]}; transform: scaleX(-1) rotate(180deg);`"></div>
+        <div class="bg bg__img" style="background-image: url('/gallery/00.jpg');"></div>
+        <div class="bg has-bg-rotate" :style="`background-color: ${Colors.Main[0]}; transform: scaleX(-1) rotate(180deg);`"></div>
         <div class="bg"></div>
       </div>
-      <div slot="content" class="content" v-html="what"></div>
     </Hero>
 
+    <Hero class="hero--what">
+      <div slot="content" class="content" v-html="what"></div>
+    </Hero>
 
     <Hero class="hero--support has-text-centered">
       <div slot="background">
         <div class="bg bg__img" style="background-image: url('/gallery/05.jpg');"></div>
-        <div class="bg has-bg-rotate" :style="`background-color: ${Colors.Custom[3]};`"></div>
+        <div class="bg has-bg-rotate" :style="`background-color: ${Colors.Main[1]};`"></div>
         <div class="bg"></div>
       </div>
+    </Hero>
+    <Hero class="hero--support has-text-centered">
       <div slot="content" class="content">
         <h1>Support us</h1>
         <div class="columns">
           <div class="column">
             <h4>Sponsor</h4>
             <div style="min-height: 150px;">
-            <p>
-              We believe that this generation of refugees has great potential.
-            </p>
-            <p>
-              Help us maximize their potential with your donation.
-            </p>
+              <p>
+                We believe that this generation of refugees has great potential.
+              </p>
+              <p>
+                Help us maximize their potential with your donation.
+              </p>
             </div>
             <SmashButton>Donate</SmashButton>
           </div>
@@ -61,12 +66,12 @@
           <div class="column">
             <h4>Code Mentors</h4>
             <div style="min-height: 150px;">
-            <p>
-              We’re looking for web-developers with experience.
-            </p>
-            <p>
-              Javascript and related frameworks, are our Mainly concern.
-            </p>
+              <p>
+                We’re looking for web-developers with experience.
+              </p>
+              <p>
+                Javascript and related frameworks, are our Mainly concern.
+              </p>
             </div>
             <SmashButton>Mentoring</SmashButton>
           </div>
@@ -74,12 +79,12 @@
           <div class="column">
             <h4>Laptop</h4>
             <div style="min-height: 150px;">
-            <p>
-              Does your organization have laptops up for donation?
-            </p>
-            <p>
-              Our student could really use them.
-            </p>
+              <p>
+                Does your organization have laptops up for donation?
+              </p>
+              <p>
+                Our student could really use them.
+              </p>
             </div>
             <SmashButton>Donate</SmashButton>
           </div>
@@ -91,16 +96,28 @@
     <Hero class="hero--apply">
       <div slot="background">
         <div class="bg bg__img" style="background-image: url('/gallery/02.jpg');"></div>
-        <div class="bg has-bg-rotate invers" :style="`background-color: ${Colors.Custom[5]}; transform: scaleY(-1);`"></div>
+        <div class="bg has-bg-rotate invers" :style="`background-color: ${Colors.Main[2]}; transform: scaleY(-1);`"></div>
         <div class="bg"></div>
       </div>
-      <div slot="content" class="content" v-html="apply"></div>
     </Hero>
 
-    <div>
-      <Mentors/>
-    </div>
+    <Hero class="hero--apply">
+      <div slot="content" class="content">
+        <div v-html="apply"></div>
+        <br/>
+        <div class="has-text-centered">
+          <SmashButton>Apply</SmashButton>
+        </div>
+        <FormApply />
+      </div>
+    </Hero>
 
+    <Hero class="hero--apply">
+      <div slot="background">
+        <div class="bg bg__img" style="background-image: url('/world-web.svg');"></div>
+      </div>
+    </Hero>
+    <Footer />
   </div>
 </template>
 <style>
@@ -223,8 +240,10 @@
  import SmashButton from '~/components/SmashButton'
  import MainActions from '~/components/MainActions'
  import Hero from '~/components/Hero'
- import Mentors from '~/components/Mentors'
+ import Menu from '~/components/Menu'
+ import Footer from '~/components/Footer'
  import Colors from '~/constants/colors'
+ import FormApply from '~/components/FormApply'
 
  import throttle from '~/functions/throttle'
 
@@ -238,7 +257,9 @@
      SmashButton,
      MainActions,
      Hero,
-     Mentors
+     Menu,
+     Footer,
+     FormApply
    },
    async asyncData () {
      let data
@@ -260,32 +281,38 @@
        tWidth: 1500,
        tHeight: 1000,
        about: data ? data : null,
+       menuOpacity: 0,
        what,
        apply,
        Colors,
-       images
+       images,
      }
    },
    mounted () {
      let wh = window.innerHeight
+     this.menuOpacity = document.body.scrollTop / window.innerHeight
+
      document.addEventListener('scroll', throttle(()=> {
-       let screen = Math.floor((document.body.scrollTop - 30) / wh)
+       let pos = (document.body.scrollTop - 30) / wh
+       let screen = Math.floor(pos)
+       this.menuOpacity = pos > 1 ? 1 : pos.toFixed(4)
+
        switch(screen){
-           case -1:
-           case 0:
+         case -1:
+         case 0:
            this.$refs.anim_0.$el.classList.add('fixed')
            this.$refs.anim_0.play()
            this.$refs.anim_1.play()
            this.$refs.anim_2.play()
            break;
-           case 1:
+         case 1:
            this.$refs.anim_0.$el.classList.remove('fixed')
            this.$refs.anim_0.pause()
            this.$refs.anim_1.pause()
            this.$refs.anim_2.play()
            break;
 
-           default:
+         default:
            this.$refs.anim_0.$el.classList.remove('fixed')
            this.$refs.anim_0.pause()
            this.$refs.anim_1.pause()

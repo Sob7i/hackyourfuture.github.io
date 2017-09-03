@@ -29,12 +29,30 @@ const Custom = [
   "#574B99"
 ]
 
+const Main = [
+  '#446CB3',
+  '#D2527F',
+  '#663399',
+  '#81CFE0',
+  '#F5D76E',
+  '#FDE3A7',
+  '#F89406'
+]
+
 const CustomLighter = Custom.map(HexToRgb).map(rgba => {
   rgba[3] = 0.5
   return `rgba(${rgba.join(',')})`
 })
 
+const MainLighter = Main.map(HexToRgb).map(rgba => {
+  rgba[3] = 0.5
+  return `rgba(${rgba.join(',')})`
+})
+
+
 export default {
+  Main,
+  MainLighter,
   DarkScale,
   LightScale,
   Custom,

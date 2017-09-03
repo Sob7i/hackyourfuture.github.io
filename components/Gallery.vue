@@ -53,7 +53,7 @@
      }
    },
    mounted () {
-     if (this.anim) this.play()
+     if (this.anim) setTimeout(this.play, this.interval)
    },
    methods: {
      play () {
