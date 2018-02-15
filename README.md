@@ -6,7 +6,7 @@ to run the project
 
 ### Structure:
 
-
+```
                         HOME ------ DONATE
                          |
         ---------------------------------------------------
@@ -20,6 +20,7 @@ to run the project
                                       - Copenhagen
                                       - Malmö 
 
+```
 ------------
 
 ### HOME
