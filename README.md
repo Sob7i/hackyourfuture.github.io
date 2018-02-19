@@ -1,11 +1,13 @@
 ### Run
 use :
+
 `npm install`
+
 `npm run dev`
+
 to run the project
 
 ### Structure:
-
 
 ```
                         HOME ------ DONATE
@@ -29,10 +31,10 @@ to run the project
 - photo
 - clear intro
 - movie
-- link to curriculum (mini about teaching)
-- hire one of our students (help by donating laptops become a partner)
+- link to curriculum, come and teach at hyf 
+- how you can help, _hire one of our students_, help by donating laptops become a partner
 - students that have found work internships?
-- news updates, around chapters?
+- (news updates, around chapters)
 - social media icons
 
 ### APPLY
