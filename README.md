@@ -1,7 +1,10 @@
 ### Run
 use :
+
 `npm install`
+
 `npm run dev`
+
 to run the project
 
 ### Structure:
@@ -21,15 +24,17 @@ to run the project
                                       - Malmö 
 
 ```
+
 ------------
 
 ### HOME
+- photo
 - clear intro
 - movie
-- link to curriculum
-- hire one of our students
+- link to curriculum, come and teach at hyf 
+- how you can help, _hire one of our students_, help by donating laptops become a partner
 - students that have found work internships?
-- news updates, around chapters?
+- (news updates, around chapters)
 - social media icons
 
 ### APPLY
