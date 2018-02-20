@@ -33,9 +33,11 @@ to run the project
 - movie
 - link to curriculum, come and teach at hyf 
 - how you can help, _hire one of our students_, help by donating laptops become a partner
-- students that have found work internships?
+- students that have found work/internships?
 - (news updates, around chapters)
 - social media icons
+- Results untill today
+- Sponsors logo's
 
 ### APPLY
 - Page for students
@@ -56,7 +58,7 @@ to run the project
 ### SUPPORT
 - hire one of our students
 - laptops
-- money
+- Donations
 - become a partner
 - teach (link to teaching page)
 
@@ -69,7 +71,16 @@ to run the project
     + Malmö
 
 ### ABOUT
-- More about what we do
+- Why do we exist? (problem: wasted refugee talent, solution: getting them trained in highly demanded skill)
+- Results untill today
+- How our school works?
+- For who? (this is country specific, as NL teaches the whole country, but sweden can't)
+- What we teach?
+- How we teach?
+- How we connect students to jobs?
+- How we are funded
+
+
 
 ### CONTACT
 - FAQ!!!!!!!!!!
