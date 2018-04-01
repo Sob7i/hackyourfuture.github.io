@@ -2,12 +2,12 @@
 const gh = require('gh-pages')
 
 gh.publish('dist', {
-  branch: 'master',
-  repo: `https://${process.env.GH_TOKEN}@github.com/Ideabile/ideabile.github.io.git`,
-  user: {
-    name: 'ideabile-ci',
-    email: 'drone@ideabile.com'
-  }
+    branch: 'master',
+    repo: `https://${process.env.GH_TOKEN}@github.com/HackYourFuture/hackyourfuture.github.io.git`,
+    user: {
+        name: 'hyf-deploy-ci',
+        email: 'ci@hackyourfuture.net'
+    }
 }, (err) => {
-   console.log(err);
+    console.log(err);
 });

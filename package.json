@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:nuxt": "nuxt",
-    "dev:server": "kib",
+    "dev:server-content": "kib",
     "generate": "npm-run-all --parallel --race generate:*",
-    "generate:server": "kib generate",
+    "generate:server": "kib generate -g ./dist",
     "generate:nuxt": "nuxt generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

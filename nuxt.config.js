@@ -21,7 +21,7 @@ module.exports = {
   },
 
   modules: [
-    ['@nuxtjs/proxy', { pathRewrite: { '^/api' : '' } }]
+    ['@nuxtjs/proxy', { pathRewrite: { '^/content' : '/content' } }]
   ],
 
   plugins: [
@@ -29,6 +29,6 @@ module.exports = {
   ],
 
   proxy: {
-    '/api': 'http://localhost:3051/'
+    '/content': 'http://localhost:3051/'
   }
 }

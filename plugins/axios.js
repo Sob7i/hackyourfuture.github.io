@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 const isGenerating = process.env.isGenerating
-const isClient = typeof window !== 'undefined' 
+const isClient = typeof window !== 'undefined'
 
 
 let baseURL = process.env.apiUrl
 
 if (!isGenerating) {
-  baseURL += '/api'
+  baseURL += ''
 }
 
 if (isClient && isGenerating) {
