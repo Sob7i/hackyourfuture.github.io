@@ -4,3 +4,4 @@ npm-debug.log
 .nuxt
 static/api
 .DS_Store
+lambda.zip
