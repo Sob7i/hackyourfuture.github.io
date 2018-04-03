@@ -5,30 +5,33 @@ const isGenerating = process.env.npm_config_argv ?
 let apiUrl = baseUrl
 
 if (isGenerating){
-  apiUrl = 'http://localhost:3051/'
+    apiUrl = 'http://localhost:3051/'
 }
+
+const lambdaUrl = require('./infra.config.json').api_url.value;
 
 module.exports = {
 
-  env: {
-    baseUrl,
-    apiUrl,
-    isGenerating
-  },
+    env: {
+        baseUrl,
+        lambdaUrl,
+        apiUrl,
+        isGenerating
+    },
 
-  generated: {
-    routes: ['/']
-  },
+    generated: {
+        routes: ['/']
+    },
 
-  modules: [
-    ['@nuxtjs/proxy', { pathRewrite: { '^/content' : '/content' } }]
-  ],
+    modules: [
+        ['@nuxtjs/proxy', { pathRewrite: { '^/content' : '/content' } }]
+    ],
 
-  plugins: [
-    '~/plugins/buefy'
-  ],
+    plugins: [
+        '~/plugins/buefy'
+    ],
 
-  proxy: {
-    '/content': 'http://localhost:3051/'
-  }
+    proxy: {
+        '/content': 'http://localhost:3051/'
+    }
 }
