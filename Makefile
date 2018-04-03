@@ -15,7 +15,7 @@ api-$(VERSION).zip: api/dist
 upload-lambda: api-$(VERSION).zip
 	@$(RUN_AWS_CLI) s3 cp /workspace/api-$(VERSION).zip s3://hyf-api-deploy/api-$(VERSION).zip
 
-publish: clean upload-lambda
+publish-api: clean upload-lambda
 	@$(RUN_AWS_CLI) lambda update-function-code --s3-bucket=hyf-api-deploy --s3-key=api-$(VERSION).zip --publish --function-name=gateway_proxy
 
 .PHONY: clean

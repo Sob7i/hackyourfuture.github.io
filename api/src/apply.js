@@ -9,53 +9,47 @@ const ses = new aws.SES({
     region: 'eu-west-1'
 });
 
+
+const sendEmail = (toEmail, Data, cbs = {}) => {
+
+    ses.sendEmail({
+        Destination: {
+            ToAddresses: [toEmail]
+        },
+        Message: {
+            Body: {
+                Text: {
+                    Data
+                }
+            },
+            Subject: {
+                Data: "Thank you to have apply!"
+            }
+        },
+        Source: fromEmail
+    }, (err, data) => {
+        if(err) return cbs.reject(err);
+        return cbs.resolve(data);
+    });
+
+}
+
 module.exports = (req, res) => {
+
     const reject = (err) => {
         console.log("===EMAIL NOT SENT===");
         console.log(err);
         res.setState(500).json({ message: 'Somenthing went wrong' });
     };
+
     const resolve = () => {
         console.log("=== ALL EMAILS ARE SENT!!!");
         res.json({ message: 'You got an email :-)'});
     }
-    ses.sendEmail({
-        Destination: {
-            ToAddresses: [fromEmail]
-        },
-        Message: {
-            Body: {
-                Text: {
-                    Data: applyToOrgTemplate({ params: req.body })
-                }
-            },
-            Subject: {
-                Data: "Thank you to have apply!"
-            }
-        },
-        Source: "mauro.mandracchia@gmail.com"
-    }, (err, data) => {
-        if(err) return reject(err);
-        return resolve(data);
-    })
-    ses.sendEmail({
-        Destination: {
-            ToAddresses: [req.body.email]
-        },
-        Message: {
-            Body: {
-                Text: {
-                    Data: applyToStudentMessage
-                }
-            },
-            Subject: {
-                Data: "Thank you to have apply!"
-            }
-        },
-        Source: "mauro.mandracchia@gmail.com"
-    }, (err, data) => {
-        if(err) return reject(err);
-        return resolve(data);
-    })
+
+    const cbs = { reject, resolve };
+
+    sendEmail(fromEmail, applyToOrgTemplate({ params: req.body }), cbs);
+    sendEmail(req.body.email, applyToStudentMessage, cbs);
 
 };
