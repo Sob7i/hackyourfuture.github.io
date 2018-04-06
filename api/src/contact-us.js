@@ -1,7 +1,6 @@
 const aws = require('aws-sdk');
 const template = require('lodash.template');
-const applyToStudentMessage = require('./../emails_template/apply_to_student.txt');
-const applyToOrgTemplate = template(require('./../emails_template/apply_to_org.tpl'));
+const applyToOrgTemplate = template(require('./../emails_template/contact_us.tpl'));
 
 const fromEmail = "info@hackyourfuture.net";
 
@@ -49,7 +48,6 @@ module.exports = (req, res) => {
 
     const cbs = { reject, resolve };
 
-    sendEmail(fromEmail, applyToOrgTemplate({ params: req.body }),'A new student applied', cbs);
-    sendEmail(req.body.email, applyToStudentMessage, 'Thank you for applying', cbs);
+    sendEmail(fromEmail, applyToOrgTemplate({ params: req.body }), 'New contact request', cbs);
 
 };

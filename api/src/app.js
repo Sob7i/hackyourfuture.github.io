@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const Apply = require('./apply');
+const ContactUs = require('./contact-us');
 const app = express();
 
 app.use(cors());
@@ -16,5 +17,6 @@ app.use((req, res, next) => {
 });
 
 app.post('/apply', (req, res) => Apply(req, res));
+app.post('/contact-us', (req, res) => ContactUs(req, res));
 
 module.exports = app;
