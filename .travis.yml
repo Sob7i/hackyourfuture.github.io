@@ -26,6 +26,6 @@ script:
 
 deploy:
   - provider: script
-    script: make publish 
+    script: make publish-travis
     on:
       branch: master
