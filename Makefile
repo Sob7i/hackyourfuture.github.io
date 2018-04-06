@@ -34,10 +34,10 @@ upload-lambda: api-$(VERSION).zip
 publish-api: clean upload-lambda
 	@$(RUN_AWS_CLI) lambda update-function-code --s3-bucket=hyf-api-deploy --s3-key=api-$(VERSION).zip --publish --function-name=gateway_proxy
 
-upload-lambda-api: api-$(VERSION).zip
+upload-lambda-travis: api-$(VERSION).zip
 	@$(RUN_TRAVIS_AWS_CLI) s3 cp /workspace/api-$(VERSION).zip s3://hyf-api-deploy/api-$(VERSION).zip
 
-publish-api-api: clean upload-lambda-travis
+publish-api-travis: clean upload-lambda-travis
 	@$(RUN_TRAVIS_AWS_CLI) lambda update-function-code --s3-bucket=hyf-api-deploy --s3-key=api-$(VERSION).zip --publish --function-name=gateway_proxy
 
 publish: publish-api
