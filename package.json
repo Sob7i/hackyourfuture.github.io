@@ -31,11 +31,11 @@
     "axios": "^0.16.2",
     "buefy": "^0.4.6",
     "kibbeling": "^1.0.4",
-    "nuxt": "^1.0.0-rc3",
     "scrollmonitor": "^1.2.3",
     "verge": "^1.10.2"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "nuxt": "^1.4.0"
   }
 }
