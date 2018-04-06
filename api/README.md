@@ -34,7 +34,7 @@ to the *Production* end-point.
 Although not ideal, for the feedback loop, is acceptable considering the current
 limited subset of functions.
 
-You can still deploy if you have credetials to `aws` (ask Mauro how).
+You can still deploy if you have credetials to `aws` (ask Mauro).
 
 ## Publish 
 ```make publish-api```
