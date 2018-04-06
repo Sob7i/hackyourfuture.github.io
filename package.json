@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "kib": {
+      "apiDir": "content-api"
+    }
+  },
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:nuxt": "nuxt",
