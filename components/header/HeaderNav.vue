@@ -2,13 +2,12 @@
   <nav class="HeaderNav">
     <nuxt-link :to="'/'">Home</nuxt-link>
     <nuxt-link :to="'/apply/'">Apply</nuxt-link>
-    <nuxt-link :to="'/trainers/'">Trainers</nuxt-link>
-    <nuxt-link :to="'/organisations/'">Organisations</nuxt-link>
+    <nuxt-link :to="'/teach/'">Teach</nuxt-link>
+    <nuxt-link :to="'/support/'">Support</nuxt-link>
     <nuxt-link :to="'/chapters/'">Chapters</nuxt-link>
     <nuxt-link :to="'/news/'">News</nuxt-link>
     <nuxt-link :to="'/about/'">About</nuxt-link>
     <nuxt-link :to="'/contact/'">Contact</nuxt-link>
-    <nuxt-link :to="'/search/'">Search</nuxt-link>
   </nav>
 </template>
 

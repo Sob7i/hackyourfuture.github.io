@@ -23,6 +23,12 @@ export default {
   background-size: cover;
   position: relative;
   text-align: center;
+  &__logo {
+    width: 30%;
+    margin-left: 50%;
+    padding-top: 15%;
+    transform: translateX(-50%);
+  }
   &__text {
     color: white;
     margin: 8 * $base-vertical-rithm;
