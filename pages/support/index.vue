@@ -27,7 +27,7 @@
         <nuxt-link :to="'/'">become<br> a <span class="underline">trainer</span></nuxt-link>
       </div>
     </Main>
-    <Signup/>
+    <Signup :color="'grey'"/>
   </div>
 </template>
 

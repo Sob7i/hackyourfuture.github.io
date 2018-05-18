@@ -26,6 +26,7 @@ html {
   -ms-text-size-adjust: 100%; // 4
   -ms-overflow-style: scrollbar; // 5
   -webkit-tap-highlight-color: rgba(0,0,0,0); // 6
+  overflow-x: hidden;
 }
 
 *,
@@ -59,6 +60,7 @@ body {
   color: $body-color;
   background-color: $body-bg; // 2
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 // Suppress the focus outline on elements that cannot be accessed via keyboard.

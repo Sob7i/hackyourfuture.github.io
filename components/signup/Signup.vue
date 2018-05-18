@@ -1,11 +1,13 @@
 <template>
-  <div class="Signup">
+  <div class="Signup" :class="color">
     <nuxt-link :to="'/'">sign up for newsletter</nuxt-link>
   </div>
 </template>
 
 <script>
-
+export default {
+  props: ['color']
+}
 </script>
 
 <style lang="scss">
@@ -13,6 +15,15 @@
   padding: 10 * $base-vertical-rithm;
   background: $color-purple;
   text-align: center;
+  &.grey {
+    background: $color-grey;
+    a {
+      color: $color-purple;
+      &:after {
+        background: $color-purple;
+      }
+    }
+  }
   a {
     color: white;
     position: relative;
