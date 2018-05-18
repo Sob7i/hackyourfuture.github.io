@@ -26,7 +26,6 @@ import Signup from '~/components/signup/Signup';
              let req  = await axios.get('/content/en/chapters_info.json')
              chapters_info = req.data.body
          } catch (e) {
-             console.log(e)
              chapters_info = false
          }
          return {

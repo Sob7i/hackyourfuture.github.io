@@ -34,10 +34,7 @@
 
       <section class="Hire">
         <h1>Help a brother out!</h1>
-        <p>You can help us by donating money, knowledge
-          and even laptops. Maybe you want to contri- bute to the local Hack Your Future chapter
-          or do structural investments to our. Eather way we are very grateful for your generosity!
-        </p>
+       <div v-html="hire"></div>
         <div class="Hire__image">
           <img src="/gallery/03.jpg">
         </div>
@@ -84,16 +81,19 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
          let what
          let apply
          let curiculum
+         let hire
          try {
              let req  = await axios.get('/content/en/index-about.json')
              let wReq  = await axios.get('/content/en/what.json')
              let aReq  = await axios.get('/content/en/apply.json')
              let cReq  = await axios.get('/content/en/curiculum.json')
+             let hReq  = await axios.get('/content/en/index-hire.json')
 
              what = wReq.data.body
              apply = aReq.data.body
              data = req.data.body
              curiculum = cReq.data.body
+             hire = hReq.data.body
          } catch (e) {
              console.log(e)
              data = false
@@ -101,6 +101,7 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
          return {
              siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
              about: data ? data : null,
+             hire: hire ? hire : null,
              what,
              apply,
              curiculum,
@@ -230,6 +231,11 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
 
 .Hire {
   margin: $base-vertical-rithm * 10 $base-vertical-rithm * 10;
+  & > div {
+     width: 35%;
+    margin: 0 $base-vertical-rithm * 10;
+    display: inline-block;
+  }
   h1 {
     font-size: 55px;
     font-weight: bold;
@@ -237,11 +243,6 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
     width: 100%;
     line-height: 50px;
     margin: $base-vertical-rithm * 10 0;
-  }
-  p {
-    width: 35%;
-    margin: 0 $base-vertical-rithm * 10;
-    display: inline-block;
   }
   &__image {
     width: 55%;
