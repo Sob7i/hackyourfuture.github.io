@@ -1,0 +1,81 @@
+<template>
+  <div>
+    <Main class="Apply container">
+      <div class="Apply__header">
+        <h1>Join <br> Us!</h1>
+        <div class="Apply__header-image">
+          <img src="/gallery/05.jpg">
+        </div>
+        <div class="Apply__header-dates" v-html="dates"></div>
+      </div>
+
+      <div class="Apply__content" v-html="content">
+      </div>
+    </Main>
+
+  </div>
+</template>
+
+<script>
+import axios from '~/plugins/axios'
+
+ export default {
+     async asyncData () {
+         let dates
+         let content
+         try {
+             let req  = await axios.get('/content/en/apply-dates.json')
+             let req1 = await axios.get('/content/en/apply-content.json')
+             dates = req.data.body
+             content = req1.data.body
+         } catch (e) {
+             console.log(e)
+             dates = false
+             content = false
+         }
+         return {
+             siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
+             dates: dates ? dates : null,
+             content: content ? content : null
+         }
+     },
+     components: {
+     }
+ }
+</script>
+
+<style lang="scss">
+.Apply {
+  &__header {
+    padding: $base-vertical-rithm * 10;
+    h1 {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      width: 20%;
+      color: $color-purple;
+      font-weight: bold;
+      font-size: 52px;
+      line-height: 60px;
+      display: inline-block;
+    }
+    &-image {
+      width: 55%;
+      display: inline-block;
+    }
+    &-dates {
+      margin-left: $base-vertical-rithm * 5;
+      width: 10%;
+      display: inline-block;
+      vertical-align: top;
+      h3 {
+        font-weight: bold;
+      }
+    }
+  }
+  &__content {
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+</style>
+

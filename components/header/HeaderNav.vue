@@ -29,7 +29,7 @@ export default {
     font-family: $fontWorkSans;
     font-weight: bold;
     letter-spacing: 0.5px;
-    &.nuxt-link-active {
+    &.nuxt-link-exact-active {
       &:after {
         content: '';
         position: absolute;
