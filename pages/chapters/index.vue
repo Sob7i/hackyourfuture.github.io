@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="Chapters__map">
-      <vl-map 
+      <vl-map
+      v-if="browser"
       data-projection="EPSG:4326"
       :load-tiles-while-animating="true" 
       :load-tiles-while-interacting="true" style="height: 400px" class="Chapters__map-map">
@@ -58,11 +59,15 @@ import Signup from '~/components/signup/Signup';
         return str.toLowerCase();
        }
      },
+     mounted () {
+        this.browser = true;
+     },
      data () {
         return {
           zoom: 4,
           center: [14, 50],
           rotation: 0,
+          browser: false,
           chapterPoints: [
             {
               name: 'Amsterdam',
