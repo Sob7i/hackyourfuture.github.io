@@ -30,9 +30,9 @@ module.exports = {
         ['nuxt-sass-resources-loader', '@/assets/css/variablesandmixins.scss']
     ],
 
-    // plugins: [
-    //     '~/plugins/buefy'
-    // ],
+    plugins: [
+        {src:'~/plugins/VueLayersPlugin', ssr: false}
+    ],
 
     proxy: {
         '/content': 'http://localhost:3051/'

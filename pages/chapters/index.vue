@@ -1,7 +1,27 @@
 <template>
   <div>
     <div class="Chapters__map">
+      <vl-map 
+      data-projection="EPSG:4326"
+      :load-tiles-while-animating="true" 
+      :load-tiles-while-interacting="true" style="height: 400px" class="Chapters__map-map">
+        <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation"></vl-view>
 
+        <vl-layer-tile id="osm">
+            <vl-source-osm></vl-source-osm>
+        </vl-layer-tile>
+
+        <vl-feature :id="'point' + chapter.name" v-for="(chapter, key) in chapterPoints" :key="key">
+          <vl-geom-circle :radius="100000" :coordinates="chapter.cords"></vl-geom-circle>
+        </vl-feature>
+     </vl-map>
+
+     <div class="Chapters__map-list">
+       <nuxt-link 
+        v-for="(chapter, key) in chapterPoints"
+        :key="key"
+        :to="strToLower(chapter.name)">{{chapter.name}}</nuxt-link>
+     </div>
     </div>
     <Main class="Chapters container">
       <div class="Chapters__information">
@@ -33,6 +53,48 @@ import Signup from '~/components/signup/Signup';
              chapters_info: chapters_info ? chapters_info : null
          }
      },
+     methods: {
+       strToLower (str) {
+        return str.toLowerCase();
+       }
+     },
+     data () {
+        return {
+          zoom: 4,
+          center: [14, 50],
+          rotation: 0,
+          chapterPoints: [
+            {
+              name: 'Amsterdam',
+              cords: [4.844456, 52.348763]
+            },
+            {
+              name: 'Copenhagen',
+              cords: [12.569647, 55.677584]
+            },
+            {
+              name: 'Dublin',
+              cords: [-6.229248, 53.348937]
+            },
+            {
+              name: 'Malmö',
+              cords: [13.009250, 55.606281]
+            },
+            {
+              name: 'Paris',
+              cords: [2.350388, 48.859638]
+            },
+            {
+              name: 'Stockholm',
+              cords: [18.105469, 59.313396]
+            },
+            {
+              name: 'Reykjavik',
+              cords: [-21.807861, 64.123866]
+            }
+          ]
+        }
+      },
      components: {
        Signup
      }
@@ -44,7 +106,25 @@ import Signup from '~/components/signup/Signup';
   &.container {
     margin-bottom: 200px;
   }
-  
+
+  &__map {
+    margin-top: 100px;
+    &-map {
+      width: 50%;
+      margin-left: 25%;
+      display: inline-block;
+    }
+    &-list {
+      padding: $base-vertical-rithm * 10;
+      width: 20%;
+      display: inline-block;
+      vertical-align: top;
+      a {
+        display: block;
+      }
+    }
+  }
+
   &__information {
     padding: $base-vertical-rithm * 10;
     &-image {
@@ -73,4 +153,3 @@ import Signup from '~/components/signup/Signup';
   }
 }
 </style>
-

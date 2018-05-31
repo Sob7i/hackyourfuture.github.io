@@ -53,6 +53,7 @@ export default {
 
 <style lang="scss">
 .Footer {
+  display: none;
   background: $color-purple;
   margin: 0px #{-$base-margin} #{-$base-margin};
   padding-bottom: 6 * $base-vertical-rithm;

@@ -33,4 +33,8 @@ import Signup from '~/components/signup/Signup';
 </script>
 
 <style lang="scss">
+.Chapter {
+    margin: 5%;
+    padding: $base-vertical-rithm;
+}
 </style>

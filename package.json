@@ -35,7 +35,8 @@
     "nuxt-sass-resources-loader": "^2.0.0",
     "sass-loader": "^7.0.1",
     "scrollmonitor": "^1.2.3",
-    "verge": "^1.10.2"
+    "verge": "^1.10.2",
+    "vuelayers": "^0.10.9"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.2",
