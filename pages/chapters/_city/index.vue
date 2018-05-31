@@ -1,7 +1,13 @@
 <template>
 <div>
-  <main class="Chapter">
-    <div v-html="chapter_welcome"></div>
+  <main class="Chapter container">
+    <div class="Chapter__header">
+        <div v-html="welcome"></div>
+        <div class="Chapter__header-image">
+            <img src="/gallery/03.jpg">
+        </div>
+        <div class="Chapter__header-description" v-html="description"></div>
+    </div>
   </main>
   <Signup  :color="'grey'"/>
 </div>
@@ -13,17 +19,22 @@ import Signup from '~/components/signup/Signup';
  export default {
      async asyncData ({ params }) {
          let city = params.city
-         let chapter_welcome
+         let welcome
+         let description
          try {
-             let req  = await axios.get('/content/en/chapter-' + city + '-welcome.json')
-             chapter_welcome = req.data.body
+             let req  = await axios.get('/content/en/chapters/' + city + '/welcome.json')
+             let req1 = await axios.get('/content/en/chapters/' + city + '/description.json')
+             welcome = req.data.body
+             description = req1.data.body
          } catch (e) {
              console.log(e)
-             chapter_welcome = false
+             welcome = false
+             description = false
          }
          return {
              siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
-             chapter_welcome: chapter_welcome ? chapter_welcome : null
+             welcome: welcome ? welcome : null,
+             description: description ? description : null
          }
      },
      components: {
