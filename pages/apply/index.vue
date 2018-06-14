@@ -11,6 +11,56 @@
 
       <div class="Apply__content" v-html="content">
       </div>
+
+      <div class="Apply__form">
+        <form action="">
+
+          <div class="Apply__form-item">
+            <label for="name">Name</label>
+            <input type="text" id="name"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="street">Street</label>
+            <input type="text" id="street"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="city">City</label>
+            <input type="text" id="city"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="country">Country</label>
+            <input type="text" id="county"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="email">e-mail</label>
+            <input type="text" id="email"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="phone">phone</label>
+            <input type="text" id="phone"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="educational-bg">Educational Background</label>
+            <input type="text" id="educational-bg"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="how-hear">How did you hear about us</label>
+            <input type="text" id="how-hear"/>
+          </div>
+
+          <div class="Apply__form-item">
+            <label for="has computer">I have a computer</label>
+            <input type="text" id="has-computer"/>
+          </div>
+         </form>
+      </div>
     </Main>
 
   </div>
