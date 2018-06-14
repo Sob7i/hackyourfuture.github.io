@@ -66,11 +66,11 @@ import Signup from '~/components/signup/Signup';
          let how_school_works
          let how_funded
          try {
-            let req  = await axios.get('/content/en/about-why_exist.json')
-            let req1  = await axios.get('/content/en/about-results_today.json')
-            let req2  = await axios.get('/content/en/about-for_who.json')
-            let req3  = await axios.get('/content/en/about-how_school_works.json')
-            let req4  = await axios.get('/content/en/about-how_funded.json')
+            let req  = await axios.get('/content/en/about/about-why_exist.json')
+            let req1  = await axios.get('/content/en/about/about-results_today.json')
+            let req2  = await axios.get('/content/en/about/about-for_who.json')
+            let req3  = await axios.get('/content/en/about/about-how_school_works.json')
+            let req4  = await axios.get('/content/en/about/about-how_funded.json')
              why_exist = req.data.body
              results_today = req1.data.body
              for_who = req2.data.body

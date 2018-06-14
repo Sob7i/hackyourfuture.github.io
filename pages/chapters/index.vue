@@ -44,7 +44,7 @@ import Signup from '~/components/signup/Signup';
      async asyncData () {
          let chapters_info
          try {
-             let req  = await axios.get('/content/en/chapters_info.json')
+             let req  = await axios.get('/content/en/chapters/chapters_info.json')
              chapters_info = req.data.body
          } catch (e) {
              chapters_info = false

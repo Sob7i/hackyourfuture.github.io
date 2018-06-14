@@ -41,9 +41,9 @@ import Signup from '~/components/signup/Signup';
          let sponsor_us
          let donate_laptops
          try {
-             let req  = await axios.get('/content/en/support-hire_alumni.json')
-             let req1  = await axios.get('/content/en/support-sponsor_us.json')
-             let req2  = await axios.get('/content/en/support-donate_laptops.json')
+             let req  = await axios.get('/content/en/support/support-hire_alumni.json')
+             let req1  = await axios.get('/content/en/support/support-sponsor_us.json')
+             let req2  = await axios.get('/content/en/support/support-donate_laptops.json')
              hire_alumni = req.data.body
              sponsor_us = req1.data.body
              donate_laptops = req2.data.body

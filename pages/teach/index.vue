@@ -27,7 +27,7 @@ import axios from '~/plugins/axios'
      async asyncData () {
          let content
          try {
-             let req  = await axios.get('/content/en/teach-content.json')
+             let req  = await axios.get('/content/en/teach/teach-content.json')
              content = req.data.body
          } catch (e) {
              console.log(e)

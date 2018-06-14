@@ -21,7 +21,7 @@ import axios from '~/plugins/axios'
          let dates
          let content
          try {
-             let req  = await axios.get('/content/en/contact-questions.json')
+             let req  = await axios.get('/content/en/contact/contact-questions.json')
              content = req.data.body
          } catch (e) {
              console.log(e)
