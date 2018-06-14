@@ -25,7 +25,6 @@
   "license": "ISC",
   "dependencies": {
     "@nuxtjs/proxy": "^1.1.1",
-    "@tweenjs/tween.js": "^17.1.0",
     "appear": "^1.0.1",
     "aws-sdk": "^2.218.1",
     "axios": "^0.16.2",
@@ -33,6 +32,7 @@
     "kibbeling": "^1.0.4",
     "node-sass": "^4.8.3",
     "nuxt-sass-resources-loader": "^2.0.0",
+    "popmotion": "^8.2.5",
     "sass-loader": "^7.0.1",
     "scrollmonitor": "^1.2.3",
     "verge": "^1.10.2",
