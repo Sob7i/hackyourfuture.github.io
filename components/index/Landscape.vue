@@ -28,17 +28,28 @@ export default {
     margin-left: 50%;
     padding-top: 15%;
     transform: translateX(-50%);
+    @include breakpoint("mobile_landscape") {
+      width: 50%;
+      padding-top: 25%;
+    }
   }
   &__text {
     color: white;
     margin: 8 * $base-vertical-rithm;
     padding-left: 20%;
     padding-right: 20%;
+    @include breakpoint("mobile_landscape") {
+      padding: 0;
+    }
     h1 {
       font-family: $fontSpaceMono;
       text-align: left;
       font-size: 42px;
       line-height: 50px;
+      @include breakpoint("mobile_landscape") {
+        font-size: 24px;
+        line-height: 24px;
+      }
     }
   }
 }

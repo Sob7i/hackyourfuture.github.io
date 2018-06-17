@@ -36,6 +36,9 @@
 <style lang="scss">
 .Makers {
   margin: $base-vertical-rithm * 20 $base-vertical-rithm * 8;
+  @include breakpoint("mobile_landscape") {
+    margin: $base-vertical-rithm * 5 $base-vertical-rithm * 2;
+  }
   h1 {
     font-size: 42px;
     font-weight: bold;
@@ -43,6 +46,7 @@
   }
   &__items {
     margin: 25px -25px;
+    
   }
   &__item {
     background: $color-purple;
@@ -51,6 +55,10 @@
     width: calc(33% - 50px);
     margin: 25px;
     display: inline-block;
+    
+    @include breakpoint("mobile_landscape") {
+      width: calc(50% - 50px);
+    }
     &-image {
 
     }

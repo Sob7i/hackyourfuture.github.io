@@ -132,16 +132,31 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
       width: 45%;
       line-height: 50px;
       margin: $base-vertical-rithm * 10 0;
+      @include breakpoint("mobile_landscape") {
+        width: 100%;
+      }
     }
     p {
       width: 70%;
       margin: 0 auto;
+      @include breakpoint("mobile_landscape") {
+        width: 100%;
+      }
     }
   }
   &__video {
     margin: $base-vertical-rithm * 10 0;
+    a {
+      @include breakpoint("mobile_landscape") {
+        margin: $base-vertical-rithm * 10 40px;
+      }
+    }
     &-player {
       display: inline-block;
+      width: 50%;
+      @include breakpoint("mobile_landscape") {
+        width: 100%;
+      }
     }
   }
   &__more {
@@ -161,12 +176,21 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
     display: inline-block;
     width: 45%;
     margin: 0 $base-vertical-rithm * 10;
+    @include breakpoint("mobile_landscape") {
+      width: 80%;
+      margin: 0 auto;
+      display: inline;
+    }
   }
   &__container {
     width: 45%;
     display: inline-block;
     text-align: center;
     vertical-align: middle;
+    @include breakpoint("mobile_landscape") {
+      margin-top:  $base-vertical-rithm * 10;
+      width: 100%;
+    }
     h1 {
       font-size: 36px;
       color: $color-purple;
@@ -191,6 +215,10 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
     padding: $base-vertical-rithm * 2;
     background: $color-purple;
     width: 75%;
+    @include breakpoint("mobile_landscape") {
+      width: 100%;
+      margin-left: 0;
+    }
     h1 {
       margin: $base-vertical-rithm * 10;
       margin-bottom: $base-vertical-rithm * 2;
@@ -198,6 +226,9 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
       color: white;
       font-size: 36px;
       line-height: 50px;
+      @include breakpoint("mobile_landscape") {
+        margin: $base-vertical-rithm * 5;
+      }
     }
     a {
       display: block;
@@ -207,6 +238,13 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
       margin: $base-vertical-rithm * 5;
       margin-top: 0;
       margin-left: 80%;
+      @include breakpoint("mobile_landscape") {
+        margin-left: 0;
+        margin-top: $base-vertical-rithm * 5;
+        margin-bottom: $base-vertical-rithm * 5;
+        text-align: center;
+        width: 100%;
+      }
       span:after {
         background: white;
         height: 1px;
@@ -220,21 +258,37 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
     margin-top: -5%;
     display: inline-block;
     vertical-align: top;
+
+    @include breakpoint("mobile_landscape") {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 0;
+    }
   }
   &__content {
     display: inline-block;
     width: 50%;
     margin: $base-vertical-rithm * 5;
     font-weight: 400;
+    @include breakpoint("mobile_landscape") {
+      width: 80%;
+    }
   }
 }
 
 .Hire {
   margin: $base-vertical-rithm * 10 $base-vertical-rithm * 10;
+  @include breakpoint("mobile_landscape") {
+    margin: $base-vertical-rithm * 5 $base-vertical-rithm * 5;
+  }
   & > div {
-     width: 35%;
+    width: 35%;
     margin: 0 $base-vertical-rithm * 10;
     display: inline-block;
+    @include breakpoint("mobile_landscape") {
+      width: 100%;
+      margin-left: 0;
+    }
   }
   h1 {
     font-size: 55px;

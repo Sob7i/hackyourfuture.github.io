@@ -36,5 +36,13 @@ module.exports = {
 
     proxy: {
         '/content': 'http://localhost:3051/'
+    },
+    head: {
+        title: 'Hack Your Future',
+        meta: [
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { hid: 'description', name: 'description', content: '' }
+        ]
     }
 }

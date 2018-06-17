@@ -21,6 +21,9 @@ export default {
   margin: 5%;
   background: $color-grey;
   padding: $base-vertical-rithm;
+  @include breakpoint("mobile_landscape") {
+
+  }
   h1 {
     width: 25%;
     color: $color-purple;
@@ -28,6 +31,9 @@ export default {
     line-height: 50px;
     display: inline-block;
     vertical-align: top;
+    @include breakpoint("mobile_landscape") {
+      width: 100%;
+    }
   }
   .News__items {
     width: 75%;

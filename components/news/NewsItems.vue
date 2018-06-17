@@ -20,6 +20,9 @@
     display: inline-block;
     width: 25%;
     color: $color-purple;
+    @include breakpoint("mobile_landscape") {
+      width: 50%;
+    }
     a, h3 {
       font-weight: bold;
     }
