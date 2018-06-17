@@ -8,6 +8,52 @@
       <nuxt-link :to="'/'" class="Contact__quicklink">Take me<br> to <span class="underline">contact</span></nuxt-link>
       <div class="Contact__content" v-html="content">
       </div>
+      <div class="Contact__form form">
+        <h1>Reach us and facilitate change!</h1>
+        <p>General Inquiries</p>
+        <form action="">
+        <fieldset>
+          <div class="half-width inputContainer">
+            <label for="firstName">Fist Name</label>
+            
+            <input type="text" id="firstName" name="firstName" @focus="setActive">
+          </div>
+          <div class="half-width inputContainer">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" @focus="setActive">
+          </div>
+          <div class="half-width inputContainer">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" @focus="setActive">
+          </div>
+          <div class="half-width inputContainer">
+            
+            <select name="country" id="country" @focus="setActive">
+              <option value="nl">The Netherlands</option>
+            </select>
+          </div>
+          <div class="half-width inputContainer">
+            
+            <label for="email">e-mail</label>
+            <input type="email" id="email" name="email" @focus="setActive">
+          </div>
+          <div class="half-width inputContainer">
+            
+            <label for="phone">phone</label>
+            <input type="number" id="phone" name="phone" @focus="setActive">
+          </div>
+          <div class="full-width inputContainer">
+            
+            <label for="eductation">Educational Background</label>
+            <input type="eductation" id="eductation" name="eductation" @focus="setActive">
+          </div>
+
+          <div class="apply-btn">
+            <input type="submit" value="Apply">
+          </div>
+        </fieldset>
+        </form>
+      </div>
     </Main>
 
   </div>
@@ -32,8 +78,16 @@ import axios from '~/plugins/axios'
              content: content ? content : null
          }
      },
-     components: {
-     }
+     methods: {
+      setActive(e) {
+        this.$el.querySelectorAll('.inputContainer').forEach(function(i) {
+          i.classList.remove('active');
+        });
+        e.target.parentNode.classList.add('active');
+      }
+    },
+    components: {
+    }
  }
 </script>
 
@@ -72,6 +126,27 @@ import axios from '~/plugins/axios'
     color: $color-purple;
     h4 {
       font-weight: bold;
+    }
+  }
+  &__form {
+    margin-top: $base-vertical-rithm * 10;
+    width: 70%;
+    margin-left: 15%;
+    position: relative;
+    p, h1 {
+      margin-left: 50px;
+      color: $color-purple;
+    }
+    h1 {
+      font-weight: bold;
+      font-size:36px;
+      width: 40%;
+      line-height: 36px;
+    }
+    p {
+      margin-top: $base-vertical-rithm * 10;
+      font-weight: bold;
+      font-size: 24px;
     }
   }
 }
