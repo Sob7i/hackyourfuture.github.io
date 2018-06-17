@@ -12,7 +12,7 @@
       <div class="Apply__content" v-html="content">
       </div>
 
-      <div class="Apply__form">
+      <div class="Apply__form form">
        <form action="">
         <fieldset>
           <div class="half-width inputContainer">
@@ -26,7 +26,7 @@
             <input type="text" id="street" name="street" @focus="setActive">
           </div>
           <div class="half-width inputContainer">
-            <label for="city">Password</label>
+            <label for="city">City</label>
             
             <input type="text" id="city" name="city" @focus="setActive">
           </div>
@@ -147,80 +147,6 @@ import axios from '~/plugins/axios'
     width: 75%;
     margin-left: 2.5%;
     padding: $base-vertical-rithm * 10;
-    .half-width, .full-width {
-      display: inline-block;
-      position:relative; 
-      border-bottom:2px solid $color-purple;
-      margin: 25px 50px;
-    }
-    .half-width {
-      width: calc(50% - 100px)  
-    }
-    .full-width {
-      width: calc(100% - 100px)  
-    }
-  }
-  input {
-    font-size:18px;
-    padding:10px 10px 10px 5px;
-    display:block;
-    width:100%;
-    border:none;
-    background: transparent;
-  }
-
-  select {
-    border:none;
-    background: transparent;
-    display: block;
-    margin: 10px 10px 10px 5px;
-    font-size:24px;
-    color: $color-purple;
-    width: 100%;
-  }
-  .computer select{
-    width: 25%;
-    float: right;
-  }
-
-  .apply-btn input{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    width: 200px;
-    background-color: $color-purple;
-    color: #fff;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-    border: 0;
-    cursor: pointer;
-    position: relative;
-    margin-top: 5 * $base-vertical-rithm;
-    left: 50%;
-  }
-  
-  input:focus 		{ outline:none; }
-
-  label {
-    color: $color-purple;; 
-    font-size:24px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
-    left:5px;
-    top:10px;
-    transition:0.2s ease all; 
-    -moz-transition:0.2s ease all; 
-    -webkit-transition:0.2s ease all;
-  }
-
-  .active label	{
-    top:-20px;
-    font-size:14px;
-    color: $color-purple;
   }
 }
 </style>

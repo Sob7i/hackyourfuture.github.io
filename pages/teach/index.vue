@@ -14,6 +14,51 @@
           <nuxt-link :to="'/chapters'">Setup your <br><span class="underline">chapter</span></nuxt-link>
         </div>
         <div class="Teach__container-content" v-html="content"></div>
+
+        <div class="Teach__form form">
+          <form action="">
+          <fieldset>
+            <div class="half-width inputContainer">
+              <label for="firstName">Fist Name</label>
+              
+              <input type="text" id="firstName" name="firstName" @focus="setActive">
+            </div>
+            <div class="half-width inputContainer">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" @focus="setActive">
+            </div>
+            <div class="half-width inputContainer">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" @focus="setActive">
+            </div>
+            <div class="half-width inputContainer">
+              
+              <select name="country" id="country" @focus="setActive">
+                <option value="nl">The Netherlands</option>
+              </select>
+            </div>
+            <div class="half-width inputContainer">
+              
+              <label for="email">e-mail</label>
+              <input type="email" id="email" name="email" @focus="setActive">
+            </div>
+            <div class="half-width inputContainer">
+              
+              <label for="phone">phone</label>
+              <input type="number" id="phone" name="phone" @focus="setActive">
+            </div>
+            <div class="full-width inputContainer">
+              
+              <label for="eductation">Educational Background</label>
+              <input type="eductation" id="eductation" name="eductation" @focus="setActive">
+            </div>
+  
+            <div class="apply-btn">
+              <input type="submit" value="Apply">
+            </div>
+          </fieldset>
+          </form>
+        </div>
       </div>
     </Main>
 
@@ -39,8 +84,16 @@ import axios from '~/plugins/axios'
              content: content ? content : null
          }
      },
-     components: {
-     }
+     methods: {
+      setActive(e) {
+        this.$el.querySelectorAll('.inputContainer').forEach(function(i) {
+          i.classList.remove('active');
+        });
+        e.target.parentNode.classList.add('active');
+      }
+    },
+    components: {
+    }
  }
 </script>
 
@@ -89,6 +142,11 @@ import axios from '~/plugins/axios'
       display: inline-block;
       vertical-align: top;
     }
+  }
+  &__form {
+    width: 70%;
+    margin-left: 15%;
+    position: relative;
   }
   
 }
