@@ -13,53 +13,62 @@
       </div>
 
       <div class="Apply__form">
-        <form action="">
-
-          <div class="Apply__form-item">
-            <label for="name">Name</label>
-            <input type="text" id="name"/>
+       <form action="">
+        <fieldset>
+          <div class="half-width inputContainer">
+            <label for="userName">Name</label>
+            
+            <input type="text" id="userName" name="userName" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
+          <div class="half-width inputContainer">
             <label for="street">Street</label>
-            <input type="text" id="street"/>
+            
+            <input type="text" id="street" name="street" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
-            <label for="city">City</label>
-            <input type="text" id="city"/>
+          <div class="half-width inputContainer">
+            <label for="city">Password</label>
+            
+            <input type="text" id="city" name="city" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
-            <label for="country">Country</label>
-            <input type="text" id="county"/>
+          <div class="half-width inputContainer">
+            
+            <select name="country" id="country" @focus="setActive">
+              <option value="nl">The Netherlands</option>
+            </select>
           </div>
-
-          <div class="Apply__form-item">
+          <div class="half-width inputContainer">
+            
             <label for="email">e-mail</label>
-            <input type="text" id="email"/>
+            <input type="email" id="email" name="email" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
+          <div class="half-width inputContainer">
+            
             <label for="phone">phone</label>
-            <input type="text" id="phone"/>
+            <input type="number" id="phone" name="phone" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
-            <label for="educational-bg">Educational Background</label>
-            <input type="text" id="educational-bg"/>
+          <div class="full-width inputContainer">
+            
+            <label for="eductation">Educational Background</label>
+            <input type="eductation" id="eductation" name="eductation" @focus="setActive">
           </div>
-
-          <div class="Apply__form-item">
-            <label for="how-hear">How did you hear about us</label>
-            <input type="text" id="how-hear"/>
+           <div class="full-width inputContainer">
+            
+            <label for="how-hear">How did you hear about us?</label>
+            <input type="how-hear" id="how-hear" name="how-hear" @focus="setActive" >
           </div>
-
-          <div class="Apply__form-item">
-            <label for="has computer">I have a computer</label>
-            <input type="text" id="has-computer"/>
+           <div class="full-width computer inputContainer">
+            
+            <label for="computer">I have a computer</label>
+            <select name="computer" id="computer" @focus="setActive">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
           </div>
-         </form>
+          <div class="apply-btn">
+            <input type="submit" value="Apply">
+          </div>
+        </fieldset>
+        </form>
       </div>
     </Main>
 
@@ -70,27 +79,35 @@
 import axios from '~/plugins/axios'
 
  export default {
-     async asyncData () {
-         let dates
-         let content
-         try {
-             let req  = await axios.get('/content/en/apply/apply-dates.json')
-             let req1 = await axios.get('/content/en/apply/apply-content.json')
-             dates = req.data.body
-             content = req1.data.body
-         } catch (e) {
-             console.log(e)
-             dates = false
-             content = false
-         }
-         return {
-             siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
-             dates: dates ? dates : null,
-             content: content ? content : null
-         }
-     },
-     components: {
-     }
+    async asyncData () {
+        let dates
+        let content
+        try {
+            let req  = await axios.get('/content/en/apply/apply-dates.json')
+            let req1 = await axios.get('/content/en/apply/apply-content.json')
+            dates = req.data.body
+            content = req1.data.body
+        } catch (e) {
+            console.log(e)
+            dates = false
+            content = false
+        }
+        return {
+            siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
+            dates: dates ? dates : null,
+            content: content ? content : null
+        }
+    },
+    methods: {
+      setActive(e) {
+        this.$el.querySelectorAll('.inputContainer').forEach(function(i) {
+          i.classList.remove('active');
+        });
+        e.target.parentNode.classList.add('active');
+      }
+    },
+    components: {
+    }
  }
 </script>
 
@@ -125,6 +142,85 @@ import axios from '~/plugins/axios'
   &__content {
     width: 70%;
     margin: 0 auto;
+  }
+  &__form {
+    width: 75%;
+    margin-left: 2.5%;
+    padding: $base-vertical-rithm * 10;
+    .half-width, .full-width {
+      display: inline-block;
+      position:relative; 
+      border-bottom:2px solid $color-purple;
+      margin: 25px 50px;
+    }
+    .half-width {
+      width: calc(50% - 100px)  
+    }
+    .full-width {
+      width: calc(100% - 100px)  
+    }
+  }
+  input {
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:100%;
+    border:none;
+    background: transparent;
+  }
+
+  select {
+    border:none;
+    background: transparent;
+    display: block;
+    margin: 10px 10px 10px 5px;
+    font-size:24px;
+    color: $color-purple;
+    width: 100%;
+  }
+  .computer select{
+    width: 25%;
+    float: right;
+  }
+
+  .apply-btn input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    width: 200px;
+    background-color: $color-purple;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    margin-top: 5 * $base-vertical-rithm;
+    left: 50%;
+  }
+  
+  input:focus 		{ outline:none; }
+
+  label {
+    color: $color-purple;; 
+    font-size:24px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+
+  .active label	{
+    top:-20px;
+    font-size:14px;
+    color: $color-purple;
   }
 }
 </style>
