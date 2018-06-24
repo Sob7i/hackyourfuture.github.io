@@ -37,12 +37,18 @@ publish-api: clean upload-lambda
 upload-lambda-travis: api-$(VERSION).zip
 	@$(RUN_TRAVIS_AWS_CLI) s3 cp /workspace/api-$(VERSION).zip s3://hyf-api-deploy/api-$(VERSION).zip
 
+dist: node_modules
+	@npm run generate
+
+upload-web-travis: dist
+	@$(RUN_TRAVIS_AWS_CLI) s3 cp /workspace/dist/* s3://hyf-website
+
 publish-api-travis: clean upload-lambda-travis
 	@$(RUN_TRAVIS_AWS_CLI) lambda update-function-code --s3-bucket=hyf-api-deploy --s3-key=api-$(VERSION).zip --publish --function-name=gateway_proxy
 
 publish: publish-api
 
-publish-travis: publish-api-travis
+publish-travis: publish-api-travis upload-web-travis
 
 .PHONY: clean
 clean:
