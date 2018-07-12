@@ -151,7 +151,6 @@ import Signup from '~/components/signup/Signup';
       }
     }
 
-
     .links {
       width: 25%;
       margin-left: 20%;

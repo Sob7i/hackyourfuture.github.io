@@ -142,6 +142,9 @@ import axios from '~/plugins/axios'
   &__content {
     width: 70%;
     margin: 0 auto;
+    ul li{
+      list-style: disc;
+    }
   }
   &__form {
     width: 75%;

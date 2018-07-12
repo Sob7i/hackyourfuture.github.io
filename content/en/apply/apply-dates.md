@@ -1,8 +1,24 @@
-### Deadline
-
-Amsterdam
+### Amsterdam
+#### Deadline class 18
+16th of February
+#### Starts
 16th of February
 
-### Starts
+### Brussels
+#### Deadline class 02
+5th of August
+#### Starts
+2nd of September
 
-26th of March
+### Copenhagen
+#### Deadline class 07
+22nd of July
+#### Starts 
+
+### Malmö 
+#### Deadline class 03
+7th of May 
+#### Starts 
+3th of June
+
+
