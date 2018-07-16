@@ -123,9 +123,10 @@ import axios from '~/plugins/axios'
   &__content {
     width: 40%;
     margin-left: 50%;
-    color: $color-purple;
+    
     h4 {
       font-weight: bold;
+      color: $color-purple;
     }
   }
   &__form {

@@ -13,6 +13,9 @@
       </div>
 
       <div class="Apply__form form">
+
+    <h1>Apply for our 6 month web development course</h1>
+        <p>General Inquiries</p>
        <form action="">
         <fieldset>
           <div class="half-width inputContainer">
@@ -46,24 +49,25 @@
             <label for="phone">phone</label>
             <input type="number" id="phone" name="phone" @focus="setActive">
           </div>
-          <div class="full-width inputContainer">
+          <div class="half-width inputContainer" >
             
             <label for="eductation">Educational Background</label>
             <input type="eductation" id="eductation" name="eductation" @focus="setActive">
           </div>
-           <div class="full-width inputContainer">
-            
-            <label for="how-hear">How did you hear about us?</label>
-            <input type="how-hear" id="how-hear" name="how-hear" @focus="setActive" >
-          </div>
-           <div class="full-width computer inputContainer">
-            
+          <div class="half-width computer inputContainer">
             <label for="computer">I have a computer</label>
-            <select name="computer" id="computer" @focus="setActive">
+            <select  name="computer" id="computer" @focus="setActive">
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
           </div>
+          
+          <div class="full-width inputContainer">
+            
+            <label for="how-hear">How did you hear about us?</label>
+            <input type="how-hear" id="how-hear" name="how-hear" @focus="setActive" >
+          </div>
+           
           <div class="apply-btn">
             <input type="submit" value="Apply">
           </div>
@@ -136,21 +140,50 @@ import axios from '~/plugins/axios'
       vertical-align: top;
       h3 {
         font-weight: bold;
+        color: $color-purple;
       }
+      h4{
+        color: $color-purple;
+      }
+
     }
   }
   &__content {
     width: 70%;
     margin: 0 auto;
+    h1{
+      color: $color-purple;
+
+    }
     ul li{
       list-style: disc;
     }
+    ul + p {
+    margin-top: 1rem;
+
+}
   }
   &__form {
     width: 75%;
     margin-left: 2.5%;
     padding: $base-vertical-rithm * 10;
+    p, h1 {
+      margin-left: 50px;
+      color: $color-purple;
+    }
+    h1 {
+      font-weight: bold;
+      font-size:36px;
+      width: 60%;
+      line-height: 36px;
+    }
+    p {
+      margin-top: $base-vertical-rithm * 10;
+      font-weight: bold;
+      font-size: 24px;
+    }
   }
+
 }
 </style>
 

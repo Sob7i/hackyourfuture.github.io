@@ -14,6 +14,7 @@
 #### Deadline class 07
 22nd of July
 #### Starts 
+1st of July
 
 ### Malmö 
 #### Deadline class 03
