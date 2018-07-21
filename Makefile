@@ -41,7 +41,7 @@ dist: node_modules
 	@npm run generate
 
 upload-web-travis: dist
-	@$(RUN_TRAVIS_AWS_CLI) s3 cp ./dist/* s3://hyf-website
+	@$(RUN_TRAVIS_AWS_CLI) s3 cp /workspace/dist s3://hyf-website --recursive
 
 publish-api-travis: clean upload-lambda-travis
 	@$(RUN_TRAVIS_AWS_CLI) lambda update-function-code --s3-bucket=hyf-api-deploy --s3-key=api-$(VERSION).zip --publish --function-name=gateway_proxy
