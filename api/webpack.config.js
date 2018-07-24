@@ -1,6 +1,9 @@
 const path = require('path');
 module.exports = {
-    entry: `${__dirname}/main.js`,
+    entry: {
+        main: `${__dirname}/main.js`,
+        dev: `${__dirname}/dev.js`
+    },
     output: {
         filename: '[name].js',
         libraryTarget: 'commonjs2',

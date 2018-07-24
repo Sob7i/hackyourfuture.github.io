@@ -5,3 +5,4 @@ npm-debug.log
 static/api
 .DS_Store
 *.zip
+api/emails

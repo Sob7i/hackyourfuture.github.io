@@ -5,51 +5,74 @@ const applyToOrgTemplate = template(require('./../emails_template/apply_to_org.t
 
 const fromEmail = "info@hackyourfuture.net";
 
-const ses = new aws.SES({
+const AWS_CONFIG = {
     region: 'eu-west-1'
-});
+};
+
+if (process.env.DEVELOPMENT) {
+
+    AWS_CONFIG.endpoint = 'http://localhost:3091';
+
+}
+
+const ses = new aws.SES(AWS_CONFIG);
 
 
-const sendEmail = (toEmail, Data, Subject, cbs = {}) => {
+const sendEmail = (toEmail, Data, Subject) => {
 
-    ses.sendEmail({
-        Destination: {
-            ToAddresses: [toEmail]
-        },
-        Message: {
-            Body: {
-                Text: {
-                    Data
+    return new Promise((resolve, reject) => {
+
+        ses.sendEmail({
+            Destination: {
+                ToAddresses: [toEmail]
+            },
+            Message: {
+                Body: {
+                    Text: {
+                        Data
+                    }
+                },
+                Subject: {
+                    Data: Subject
                 }
             },
-            Subject: {
-                Data: Subject
-            }
-        },
-        Source: fromEmail
-    }, (err, data) => {
-        if(err) return cbs.reject(err);
-        return cbs.resolve(data);
-    });
+            Source: fromEmail
+        }, (err, data) => {
 
+            if (err) return reject(err);
+
+            return resolve(data);
+
+        });
+
+    });
 }
 
 module.exports = (req, res) => {
 
-    const reject = (err) => {
+    sendEmail(
+        fromEmail,
+        applyToOrgTemplate({ params: req.body }),
+        'A new student applied'
+    ).then(() => {
+
+        return sendEmail(
+            req.body.email,
+            applyToStudentMessage,
+            'Thank you for applying'
+        );
+
+    }).then(() => {
+
+        console.log("=== ALL EMAILS ARE SENT!!!");
+        res.status(200).json({ message: 'You got an email :-)'});
+
+    }).catch((err) => {
+
         console.log("===EMAIL NOT SENT===");
         console.log(err);
-        res.setState(500).json({ message: 'Something went wrong' });
-    };
+        res.status(500).json({ message: 'Something went wrong' });
 
-    const resolve = () => {
-        console.log("=== ALL EMAILS ARE SENT!!!");
-        res.json({ message: 'You got an email :-)'});
-    }
-
-    const cbs = { reject, resolve };
-
-    sendEmail(fromEmail, applyToOrgTemplate({ params: req.body }),'A new student applied', cbs);
-    sendEmail(req.body.email, applyToStudentMessage, 'Thank you for applying', cbs);
+    });
 
 };
