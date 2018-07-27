@@ -52,4 +52,4 @@ publish-travis: publish-api-travis upload-web-travis
 
 .PHONY: clean
 clean:
-	@rm -rf api/dist
+	@rm -rf api/dist node_modules api/node_modules
