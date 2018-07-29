@@ -9,11 +9,6 @@ const AWS_CONFIG = {
     region: 'eu-west-1'
 };
 
-if (process.env.DEVELOPMENT) {
-    new AWS.Endpoint('http://localhost:3091');
-    AWS_CONFIG.endpoint = 'http://localhost:3091';
-
-}
 
 const ses = new AWS.SES(AWS_CONFIG);
 
@@ -21,6 +16,11 @@ const ses = new AWS.SES(AWS_CONFIG);
 const sendEmail = (toEmail, Data, Subject) => {
 
     return new Promise((resolve, reject) => {
+
+        if (process.env.DEVELOPMENT) {
+            resolve();
+            return;
+        }
 
         ses.sendEmail({
             Destination: {
