@@ -1,4 +1,4 @@
-const aws = require('aws-sdk');
+const AWS = require('aws-sdk');
 const template = require('lodash.template');
 const applyToStudentMessage = require('./../emails_template/apply_to_student.txt');
 const applyToOrgTemplate = template(require('./../emails_template/apply_to_org.tpl'));
@@ -10,12 +10,12 @@ const AWS_CONFIG = {
 };
 
 if (process.env.DEVELOPMENT) {
-
+    new AWS.Endpoint('http://localhost:3091');
     AWS_CONFIG.endpoint = 'http://localhost:3091';
 
 }
 
-const ses = new aws.SES(AWS_CONFIG);
+const ses = new AWS.SES(AWS_CONFIG);
 
 
 const sendEmail = (toEmail, Data, Subject) => {
