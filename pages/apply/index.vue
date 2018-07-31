@@ -18,48 +18,48 @@
                         <div class="half-width inputContainer">
                             <label for="userName">Name</label>
 
-                            <input type="text" id="userName" name="userName" @focus="setActive">
+                            <input type="text" id="userName" class="input" name="userName" @focus="setActive">
                         </div>
                         <div class="half-width inputContainer">
                             <label for="street">Street</label>
 
-                            <input type="text" id="street" name="street" @focus="setActive">
+                            <input type="text" id="street" class="input" name="street" @focus="setActive">
                         </div>
                         <div class="half-width inputContainer">
                             <label for="city">City</label>
 
-                            <input type="text" id="city" name="city" @focus="setActive">
+                            <input type="text" id="city" class="input" name="city" @focus="setActive">
                         </div>
                         <div class="half-width inputContainer">
 
-                            <select name="country" id="country" @focus="setActive">
+                            <select name="country" class="input" id="country" @focus="setActive">
                                 <option value="nl">The Netherlands</option>
                             </select>
                         </div>
                         <div class="half-width inputContainer">
 
                             <label for="email">e-mail</label>
-                            <input type="email" id="email" name="email" @focus="setActive">
+                            <input type="email" id="email" class="input" name="email" @focus="setActive">
                         </div>
                         <div class="half-width inputContainer">
 
                             <label for="phone">phone</label>
-                            <input type="number" id="phone" name="phone" @focus="setActive">
+                            <input type="number" id="phone" class="input" name="phone" @focus="setActive">
                         </div>
                         <div class="full-width inputContainer">
 
                             <label for="eductation">Educational Background</label>
-                            <input type="eductation" id="eductation" name="eductation" @focus="setActive">
+                            <input type="eductation" id="eductation" class="input" name="eductation" @focus="setActive">
                         </div>
                         <div class="full-width inputContainer">
 
                             <label for="how-hear">How did you hear about us?</label>
-                            <input type="how-hear" id="how-hear" name="how-hear" @focus="setActive" >
+                            <input type="how-hear" id="how-hear" class="input" name="how-hear" @focus="setActive" >
                         </div>
                         <div class="full-width computer inputContainer">
 
                             <label for="computer">I have a computer</label>
-                            <select name="computer" id="computer" @focus="setActive">
+                            <select name="computer" id="computer" class="input" @focus="setActive">
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
@@ -99,12 +99,12 @@
          }
      },
      methods: {
-         setActive(e) {
-             this.$el.querySelectorAll('.inputContainer').forEach(function(i) {
-                 i.classList.remove('active');
-             });
-             e.target.parentNode.classList.add('active');
-         }
+        setActive(e) {
+            this.$el.querySelectorAll('.input').forEach(function(i) {
+            if(i.value.length == 0) { i.parentNode.classList.remove('active');}
+            });
+            e.target.parentNode.classList.add('active'); 
+        }
      },
      components: {
      }
