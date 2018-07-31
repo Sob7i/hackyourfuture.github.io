@@ -1,6 +1,6 @@
 const aws = require('aws-sdk');
 const template = require('lodash.template');
-const applyToOrgTemplate = template(require('./../emails_template/contact_us.tpl'));
+const applyToOrgTemplate = template(require('../../emails_template/contact_us.tpl'));
 
 const fromEmail = "info@hackyourfuture.net";
 
