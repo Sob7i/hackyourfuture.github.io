@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const template = require('lodash.template');
-const applyToStudentMessage = require('./../emails_template/apply_to_student.txt');
-const applyToOrgTemplate = template(require('./../emails_template/apply_to_org.tpl'));
+const applyToStudentMessage = require('../../emails_template/apply_to_student.txt');
+const applyToOrgTemplate = template(require('../../emails_template/apply_to_org.tpl'));
 
 const fromEmail = "info@hackyourfuture.net";
 
@@ -9,9 +9,7 @@ const AWS_CONFIG = {
     region: 'eu-west-1'
 };
 
-
 const ses = new AWS.SES(AWS_CONFIG);
-
 
 const sendEmail = (toEmail, Data, Subject) => {
 
