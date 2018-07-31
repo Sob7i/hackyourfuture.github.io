@@ -8,13 +8,12 @@
     <nuxt-link :to="'/news/'">News</nuxt-link>
     <nuxt-link :to="'/about/'">About</nuxt-link>
     <nuxt-link :to="'/contact/'">Contact</nuxt-link>
+    <nuxt-link :to="'/upload/'">Upload</nuxt-link>
   </nav>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style lang="scss">
@@ -31,7 +30,7 @@ export default {
     letter-spacing: 0.5px;
     &.nuxt-link-exact-active {
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         height: 2px;
         bottom: -$base-vertical-rithm;
