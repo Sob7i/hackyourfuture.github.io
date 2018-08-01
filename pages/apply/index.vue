@@ -13,7 +13,7 @@
             </div>
 
             <div class="Apply__form form">
-                <form action="https://jav85876c3.execute-api.eu-central-1.amazonaws.com/prod/apply" method="POST">
+                <form :action="formUrl" method="POST">
                     <fieldset>
                         <div class="half-width inputContainer">
                             <label for="userName">Name</label>
@@ -93,6 +93,7 @@
              content = false
          }
          return {
+             formUrl: process.env.lambdaUrl,
              siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
              dates: dates ? dates : null,
              content: content ? content : null
