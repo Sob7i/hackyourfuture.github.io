@@ -9,9 +9,7 @@ const AWS_CONFIG = {
     region: 'eu-west-1'
 };
 
-
 const ses = new AWS.SES(AWS_CONFIG);
-
 
 const sendEmail = (toEmail, Data, Subject) => {
 
@@ -65,7 +63,7 @@ module.exports = (req, res) => {
     }).then(() => {
 
         console.log("=== ALL EMAILS ARE SENT!!!");
-        res.status(200).json({ message: 'You got an email :-)'});
+        res.status(200).json({ message: 'You got an email :-)' });
 
     }).catch((err) => {
 
