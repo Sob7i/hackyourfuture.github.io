@@ -6,7 +6,7 @@
                 <div class="About__header-content">
                       <div v-html="dates"></div>
                       <div v-html="content"></div>
-                       <div v-html="description"></div>
+                      <div v-html="description"></div>
                 </div>
             </div>
  <template>
@@ -17,10 +17,10 @@
          <input type="text" id="email" ref="email" />
       </div>
 
-      <div><h3  class="text">Choose Your CV, Motivation Letter:</h3></div>
+      <div><h3 class="text">Choose Your CV, Motivation Letter:</h3></div>
 
     <div>
-      <input  class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+      <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
 
     <div>
@@ -32,7 +32,6 @@
     </div>
 </template>
                 </Main>
-
                 <Upload/>
             </div>
 
@@ -56,7 +55,6 @@ export default {
       dates = req1.data.body;
       content = req2.data.body;
     } catch (e) {
-      console.log(e);
       description = false;
       dates = false;
       content = false;
