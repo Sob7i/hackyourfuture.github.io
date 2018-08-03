@@ -4,12 +4,12 @@ const path = require("path");
 
 const app = express();
 
-// creat a folder to store the photos 
+//creat a folder to store the photos 
 app.use(express.static("./uploads"));
 
 app.use(express.json());
 
-// destination of the storage
+//destination of the storage
 const destination = './uploads/';  
 
 const storage = multer.diskStorage({
