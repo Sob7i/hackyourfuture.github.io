@@ -36,6 +36,7 @@
     "sass-loader": "^7.0.1",
     "scrollmonitor": "^1.2.3",
     "verge": "^1.10.2",
+    "vue-dropdowns": "^1.0.6",
     "vuelayers": "^0.10.9"
   },
   "devDependencies": {

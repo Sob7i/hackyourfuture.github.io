@@ -10,8 +10,8 @@
                 </div>
             </div>
  <template>
-  <div>
-      <h2 class="text">Your Email:</h2> 
+  <div class="uploadContainer">
+      <div class="text"><h3>Your Email:</h3></div> 
 
       <div class="email-input">
          <input type="text" id="email" ref="email" />
@@ -25,17 +25,11 @@
 
     <div>
       <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
-    </div>
-
-    <br>
-    <!-- <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="addFiles()">Add Files</button>
-    </div> -->
-    <br>
-    <div>
-      <button class="buttonStyle" v-on:click="submitFiles()">Submit</button>
-    </div>
+    </div>   
   </div>
+  <div class="wrapper"> 
+      <button class="button" v-on:click="submitFiles()">Submit</button>
+    </div>
 </template>
                 </Main>
 
@@ -174,6 +168,14 @@ export default {
 </script>
 
         <style lang="scss">
+.uploadContainer {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
 .text {
   margin: auto;
   display: inline-block;
@@ -185,20 +187,27 @@ export default {
   display: inline-block;
   margin: auto;
   width: 25%;
+  padding: 0;
 }
-.buttonStyle {
-  display: inline-block;
-  margin: 20px;
+
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: relative;
   background-color: lightgray;
   color: black;
   font-size: 18px;
   font-weight: bold;
+  margin: 0;
+  margin-top: 40px;
 }
 .About {
   &__header {
-    padding: $base-vertical-rithm * 10;
+    padding: $base-vertical-rithm * 5;
     text-align: center;
-    margin-right: -100px;
+
     a {
       color: $color-purple;
       font-weight: bold;
@@ -212,9 +221,9 @@ export default {
       display: inline-block;
       width: 50%;
       text-align: center;
-      padding: $base-vertical-rithm * 10;
+      padding: $base-vertical-rithm * 5;
       & > div {
-        margin-top: $base-vertical-rithm * 5;
+        margin-top: $base-vertical-rithm * 2;
       }
     }
     &-image {
@@ -224,7 +233,7 @@ export default {
     }
   }
   &__container {
-    margin: 0 $base-vertical-rithm * 10;
+    margin: 0 $base-vertical-rithm * 2;
     h1 {
       margin-bottom: $base-vertical-rithm * 2;
       color: $color-purple;
