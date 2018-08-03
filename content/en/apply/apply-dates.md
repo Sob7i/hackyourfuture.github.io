@@ -5,4 +5,4 @@ Amsterdam
 
 ### Starts
 
-26th of March
+26th of August
