@@ -136,7 +136,7 @@ export default {
       console.log(document.getElementById("email").value);
 
       document.getElementById("files").value = ""; //delete name of file after added
-      document.getElementById("email").value = "";
+      document.getElementById("email").value = ""; //delete email after added
       formData.delete("files"); //delete every thing from formData
     },
 
