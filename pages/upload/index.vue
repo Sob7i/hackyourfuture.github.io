@@ -26,12 +26,6 @@
     <div>
       <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
     </div>
-
-    <br>
-    <!-- <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="addFiles()">Add Files</button>
-    </div> -->
-    <br>
     <div>
       <button class="buttonStyle" v-on:click="submitFiles()">Submit</button>
     </div>
