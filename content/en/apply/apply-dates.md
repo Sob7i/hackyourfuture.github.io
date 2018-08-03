@@ -1,7 +1,7 @@
 ### Deadline
 
 Amsterdam
-16th of February
+16th of August
 
 ### Starts
 
