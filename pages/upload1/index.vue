@@ -80,9 +80,6 @@ export default {
   },
 
   methods: {
-    /*
-        Adds a file
-    */
     addFiles() {
       this.$refs.files.click();
     },
