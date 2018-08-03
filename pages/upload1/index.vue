@@ -231,9 +231,9 @@ export default {
     }
   }
   &__container {
-    margin: 0 $base-vertical-rithm * 2;
+    margin: 0 $base-vertical-rithm * 5;
     h1 {
-      margin-bottom: $base-vertical-rithm * 2;
+      margin-bottom: $base-vertical-rithm * 5;
       color: $color-purple;
       font-weight: normal;
       font-size: 42px;
