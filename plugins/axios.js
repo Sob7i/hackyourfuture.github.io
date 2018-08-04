@@ -1,7 +1,7 @@
 // Extend relative request with a base url.
 
 import axios from 'axios'
-let baseURL = process.env.apiUrl
+let baseURL = typeof window !== 'undefined' ? '/' : process.env.apiUrl
 
 // You can also prefix in context of execution.
 //

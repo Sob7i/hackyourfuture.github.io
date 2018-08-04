@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <Main class="Apply container">
-      <div class="Apply__header">
-        <h1>Join <br> Us!</h1>
-        <div class="Apply__header-image">
-          <img src="/gallery/05.jpg">
-        </div>
-        <div class="Apply__header-dates" v-html="dates"></div>
-      </div>
+    <div>
+        <Main class="Apply container">
+            <div class="Apply__header">
+                <h1>Join <br> Us!</h1>
+                <div class="Apply__header-image">
+                    <img src="/gallery/05.jpg">
+                </div>
+                <div class="Apply__header-dates" v-html="dates"></div>
+            </div>
 
-      <div class="Apply__content" v-html="content">
-      </div>
+            <div class="Apply__content" v-html="content">
+            </div>
 
-      <div class="Apply__form form">
+<div class="Apply__form form">
 
     <h1>Apply for our 6 month web development course</h1>
         <p>General Inquiries</p>
-       <form action="">
+       <form :action="formUrl" method="POST">
         <fieldset>
           <div class="half-width inputContainer">
             <label for="userName">Name</label>
@@ -76,42 +76,43 @@
       </div>
     </Main>
 
-  </div>
+    </div>
 </template>
 
 <script>
-import axios from '~/plugins/axios'
+ import axios from '~/plugins/axios'
 
  export default {
-    async asyncData () {
-        let dates
-        let content
-        try {
-            let req  = await axios.get('/content/en/apply/apply-dates.json')
-            let req1 = await axios.get('/content/en/apply/apply-content.json')
-            dates = req.data.body
-            content = req1.data.body
-        } catch (e) {
-            console.log(e)
-            dates = false
-            content = false
+     async asyncData () {
+         let dates
+         let content
+         try {
+             let req  = await axios.get('/content/en/apply/apply-dates.json')
+             let req1 = await axios.get('/content/en/apply/apply-content.json')
+             dates = req.data.body
+             content = req1.data.body
+         } catch (e) {
+             console.log(e)
+             dates = false
+             content = false
+         }
+         return {
+             formUrl: process.env.lambdaUrl,
+             siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
+             dates: dates ? dates : null,
+             content: content ? content : null
+         }
+     },
+     methods: {
+        setActive(e) {
+            this.$el.querySelectorAll('.input').forEach(function(i) {
+            if(i.value.length == 0) { i.parentNode.classList.remove('active');}
+            });
+            e.target.parentNode.classList.add('active'); 
         }
-        return {
-            siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
-            dates: dates ? dates : null,
-            content: content ? content : null
-        }
-    },
-    methods: {
-      setActive(e) {
-        this.$el.querySelectorAll('.inputContainer').forEach(function(i) {
-          i.classList.remove('active');
-        });
-        e.target.parentNode.classList.add('active');
-      }
-    },
-    components: {
-    }
+     },
+     components: {
+     }
  }
 </script>
 
@@ -185,5 +186,5 @@ import axios from '~/plugins/axios'
   }
 
 }
-</style>
 
+</style>

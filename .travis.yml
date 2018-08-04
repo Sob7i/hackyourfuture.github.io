@@ -26,6 +26,7 @@ script:
 
 deploy:
   - provider: script
+    skip_cleanup: true
     script: make publish-travis
     on:
       branch: master
