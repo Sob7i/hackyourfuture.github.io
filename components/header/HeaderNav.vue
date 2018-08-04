@@ -7,13 +7,14 @@
     <nuxt-link :to="'/chapters/'">Chapters</nuxt-link>
     <nuxt-link :to="'/about/'">About</nuxt-link>
     <nuxt-link :to="'/contact/'">Contact</nuxt-link>
+    <nuxt-link :to="'/upload/'">Upload CV</nuxt-link>
+    <nuxt-link :to="'/upload1'">Upload Assignmet</nuxt-link>
+    
   </nav>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style lang="scss">
@@ -30,7 +31,7 @@ export default {
     letter-spacing: 0.5px;
     &.nuxt-link-exact-active {
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         height: 2px;
         bottom: -$base-vertical-rithm;
@@ -42,3 +43,4 @@ export default {
   }
 }
 </style>
+

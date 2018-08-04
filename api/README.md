@@ -27,14 +27,12 @@ We use `express` together with `aws-serverless-express` proxy.
 - **Routes**
   You can add them under `./src/app`. Follow the `express-ion` :-)
 
-## Development *~ to be improved*
-Currently we use the `aws lambda` and we our local development points
-to the *Production* end-point.
-
-Although not ideal, for the feedback loop, is acceptable considering the current
-limited subset of functions.
-
-You can still deploy if you have credetials to `aws` (ask Mauro).
+## Development
+If you want to start development you can run `npm dev`.
+This would:
+- Start a fake `ses` provider
+- Start nodemon from the `dev.js`
+- `webpack --watch`
 
 ## Publish 
 ```make publish-api```

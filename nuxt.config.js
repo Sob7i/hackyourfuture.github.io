@@ -4,11 +4,19 @@ const isGenerating = process.env.npm_config_argv ?
 
 let apiUrl = baseUrl
 
+console.log();
+
 if (isGenerating){
     apiUrl = 'http://localhost:3051/'
 }
 
-const lambdaUrl = require('./infra.config.json').api_url.value;
+let lambdaUrl = require('./infra.config.json').api_url.value;
+if (process.env.ENVIRONMENT === 'dev') {
+
+    lambdaUrl = 'http://localhost:3005/';
+
+}
+
 
 module.exports = {
 
