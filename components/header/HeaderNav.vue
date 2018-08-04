@@ -3,9 +3,8 @@
     <nuxt-link :to="'/'">Home</nuxt-link>
     <nuxt-link :to="'/apply/'">Apply</nuxt-link>
     <nuxt-link :to="'/teach/'">Teach</nuxt-link>
-    <nuxt-link :to="'/support/'">Support</nuxt-link>
+    <nuxt-link :to="'/support/'">Hire</nuxt-link>
     <nuxt-link :to="'/chapters/'">Chapters</nuxt-link>
-    <nuxt-link :to="'/news/'">News</nuxt-link>
     <nuxt-link :to="'/about/'">About</nuxt-link>
     <nuxt-link :to="'/contact/'">Contact</nuxt-link>
   </nav>

@@ -134,16 +134,22 @@ import axios from '~/plugins/axios'
       display: inline-block;
     }
     &-dates {
-      margin-left: $base-vertical-rithm * 5;
-      width: 10%;
+      margin-left: $base-vertical-rithm * 15;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
       display: inline-block;
       vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+      }
       h3 {
         font-weight: bold;
         color: $color-purple;
       }
       h4{
         color: $color-purple;
+        font-weight: bold;
       }
 
     }

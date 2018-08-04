@@ -60,10 +60,6 @@
 
     </section>
 
-    <section class="News">
-      <News/>
-    </section>
-
     <section class="Makers">
       <Makers/>
     </section>
@@ -82,7 +78,6 @@ import axios from '~/plugins/axios'
 import Colors from '~/constants/colors'
 
 import Landscape from '~/components/index/Landscape';
-import News from '~/components/news/News';
 import Signup from '~/components/signup/Signup';
 import Makers from '~/components/makers/Makers';
 import Partners from '~/components/partners/Partners';
@@ -127,7 +122,6 @@ import YoutubePlayer from '~/components/video/YoutubePlayer';
      },
      components: {
        Landscape,
-       News,
        Signup,
        Makers,
        Partners,

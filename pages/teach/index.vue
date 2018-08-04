@@ -172,7 +172,7 @@ import axios from '~/plugins/axios'
       vertical-align: top;
     }
     &.what {
-      margin-left: 20%;
+      margin-left: 0%;
       .Teach__container-image {
         margin-left: 0;
       }
