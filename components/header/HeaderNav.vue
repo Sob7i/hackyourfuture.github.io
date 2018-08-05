@@ -7,8 +7,7 @@
     <nuxt-link :to="'/chapters/'">Chapters</nuxt-link>
     <nuxt-link :to="'/about/'">About</nuxt-link>
     <nuxt-link :to="'/contact/'">Contact</nuxt-link>
-    <nuxt-link :to="'/upload/'">Upload CV</nuxt-link>
-    <nuxt-link :to="'/upload1'">Upload Assignmet</nuxt-link>
+ 
     
   </nav>
 </template>

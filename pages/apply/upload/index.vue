@@ -5,44 +5,37 @@
 
                 <div class="About__header-content">
                       <div v-html="dates"></div>
-                      <div v-html="content"></div>
-                       <div v-html="description"></div>
+                     
+                      <div v-html="description"></div>
                 </div>
             </div>
- <template>
-  <div>
-      <h2 class="text">Your Email:</h2> 
+ 
+  <div class="uploadContainer">
+      <div class="text"><h3>Your Email:</h3></div> 
 
       <div class="email-input">
          <input type="text" id="email" ref="email" />
       </div>
 
-      <div><h3  class="text">Choose Your CV, Motivation Letter:</h3></div>
+      <div><h3 class="text">Choose Your CV, Motivation Letter:</h3></div>
 
     <div>
-      <input  class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+      <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
 
     <div>
       <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
-    </div>
-
-    <br>
-    <!-- <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="addFiles()">Add Files</button>
-    </div> -->
-    <br>
-    <div>
-      <button class="buttonStyle" v-on:click="submitFiles()">Submit</button>
-    </div>
+    </div>   
   </div>
-</template>
-                </Main>
+  <div class="wrapper"> 
+      <button class="button" v-on:click="submitFiles()">Submit</button>
+    </div>
 
+                </Main>
                 <Upload/>
             </div>
 
-        </template>
+</template>
 
         <script>
 import axios from "~/plugins/axios";
@@ -52,26 +45,21 @@ export default {
   async asyncData() {
     let description;
     let dates;
-    let content;
 
     try {
       let req = await axios.get("/content/en/upload/upload.json");
       let req1 = await axios.get("/content/en/apply/apply-dates.json");
-      let req2 = await axios.get("/content/en/apply/apply-content.json");
+
       description = req.data.body;
       dates = req1.data.body;
-      content = req2.data.body;
     } catch (e) {
-      console.log(e);
       description = false;
       dates = false;
-      content = false;
     }
     return {
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
       description: description ? description : null,
-      dates: dates ? dates : null,
-      content: content ? content : null
+      dates: dates ? dates : null
     };
   },
 
@@ -173,7 +161,15 @@ export default {
 };
 </script>
 
-        <style lang="scss">
+<style lang="scss">
+.uploadContainer {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
 .text {
   margin: auto;
   display: inline-block;
@@ -185,20 +181,27 @@ export default {
   display: inline-block;
   margin: auto;
   width: 25%;
+  padding: 0;
 }
-.buttonStyle {
-  display: inline-block;
-  margin: 20px;
+
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: relative;
   background-color: lightgray;
   color: black;
   font-size: 18px;
   font-weight: bold;
+  margin: 0;
+  margin-top: 40px;
 }
 .About {
   &__header {
-    padding: $base-vertical-rithm * 10;
+    padding: $base-vertical-rithm * 5;
     text-align: center;
-    margin-right: -100px;
+
     a {
       color: $color-purple;
       font-weight: bold;
@@ -212,9 +215,9 @@ export default {
       display: inline-block;
       width: 50%;
       text-align: center;
-      padding: $base-vertical-rithm * 10;
+      padding: $base-vertical-rithm * 5;
       & > div {
-        margin-top: $base-vertical-rithm * 5;
+        margin-top: $base-vertical-rithm * 2;
       }
     }
     &-image {
@@ -224,9 +227,9 @@ export default {
     }
   }
   &__container {
-    margin: 0 $base-vertical-rithm * 10;
+    margin: 0 $base-vertical-rithm * 5;
     h1 {
-      margin-bottom: $base-vertical-rithm * 2;
+      margin-bottom: $base-vertical-rithm * 5;
       color: $color-purple;
       font-weight: normal;
       font-size: 42px;

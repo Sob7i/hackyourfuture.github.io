@@ -5,19 +5,27 @@
 
                 <div class="About__header-content">
                       <div v-html="dates"></div>
-                      <div v-html="content"></div>
+                     
                       <div v-html="description"></div>
                 </div>
             </div>
  <template>
   <div class="uploadContainer">
-      <div class="text"><h3>Your Email:</h3></div> 
+
+<div class="text"><h3>Enter Your Code:</h3></div> 
+
+      <div class="email-input">
+         <input type="text" id="code" ref="code" />
+      </div>
+
+      <br>
+       <div class="text"><h3>Your Assignment Link:</h3></div> 
 
       <div class="email-input">
          <input type="text" id="email" ref="email" />
       </div>
 
-      <div><h3 class="text">Choose Your CV, Motivation Letter:</h3></div>
+      <div><h3 class="text">Choose Photo ( Screenshot ):</h3></div>
 
     <div>
       <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
@@ -48,7 +56,7 @@ export default {
     let content;
 
     try {
-      let req = await axios.get("/content/en/upload/upload.json");
+      let req = await axios.get("/content/en/upload/upload1.json");
       let req1 = await axios.get("/content/en/apply/apply-dates.json");
       let req2 = await axios.get("/content/en/apply/apply-content.json");
       description = req.data.body;
@@ -101,13 +109,17 @@ export default {
       for (var i = 0; i < this.files.length; i++) {
         let file = this.files[i];
         let emailData = document.getElementById("email").value;
+        let codeData = document.getElementById("code").value;
         formData.append("files[" + 0 + "]", emailData);
+        formData.append("files[" + 1 + "]", codeData);
         formData.append("files[" + i + "]", file);
       }
       if (
         this.files.length > 0 &&
         document.getElementById("email").value !== "" &&
-        document.getElementById("email").value !== null
+        document.getElementById("email").value !== null &&
+        document.getElementById("code").value !== "" &&
+        document.getElementById("code").value !== null
       ) {
         /*
           Make the request to the POST /select-files URL
@@ -125,7 +137,7 @@ export default {
             console.log("FAILURE!!");
           });
       } else {
-        alert("You Must Upload the CV,Motivation Letter before You Submit!");
+        alert("You Must Assignemnt link,Photo before You Submit!");
       }
 
       /*
@@ -135,9 +147,11 @@ export default {
         this.files.splice(0);
       }
       console.log(document.getElementById("email").value);
+      console.log(document.getElementById("code").value);
 
       document.getElementById("files").value = ""; //delete name of file after added
       document.getElementById("email").value = "";
+      document.getElementById("code").value = "";
       formData.delete("files"); //delete every thing from formData
     },
 
@@ -231,9 +245,9 @@ export default {
     }
   }
   &__container {
-    margin: 0 $base-vertical-rithm * 2;
+    margin: 0 $base-vertical-rithm * 5;
     h1 {
-      margin-bottom: $base-vertical-rithm * 2;
+      margin-bottom: $base-vertical-rithm * 5;
       color: $color-purple;
       font-weight: normal;
       font-size: 42px;
