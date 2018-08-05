@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props: ["color"]
+  props: ["color"],
+  methods: {
+    sendQ: function() {
+      console.log(document.getElementById("question").value);
+    }
+  }
 };
 </script>
 

@@ -1,25 +1,27 @@
 <template>
     <div>
-        <Main class="About container">
-            <div class="About__header">
-
-                <div class="About__header-content">
-                      <div class="About__header-dates" v-html="dates"></div>
-                      <div class="About__content" v-html="content"></div>
-                      <div class="About__description" v-html="description"></div>
-                </div>
-            </div>
- <template>
-   
+      <Main class="About container">
+        <div class="About__header">
+          <div class="About__header-content">
+            <div class="About__description" v-html="description"></div>
+          </div>
+        </div>
+ 
   <div class="uploadContainer">
-      <div class="text"><h2>Your Email:</h2></div> 
+      <div class="text"><h3>Your Email:</h3></div> 
 
       <div class="email-input">
-         <input type="text" id="email" ref="email" />
+         <input type="input-text" id="code" ref="code" />
       </div>
 
-      <div class="text"><h2>Choose Your CV, Motivation Letter:</h2></div>
+      <br>
+       <div class="text"><h2>Your Assignment Link:</h2></div> 
 
+      <div class="email-input">
+         <input type="input-text" id="email" ref="email" />
+      </div>
+
+      <div class="text"><h2>Choose Photo ( Screenshot ):</h2></div>
     <div class="input-dev">
       <input class="input-button" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
@@ -28,16 +30,15 @@
       <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
     </div>   
   </div>
-
   <div class="wrapper"> 
-    <button class="submit-button" v-on:click="submitFiles()">Submit</button>
+      <button class="submit-button" v-on:click="submitFiles()">Submit</button>
     </div>
-</template>
+
                 </Main>
                 <Upload/>
             </div>
 
-        </template>
+</template>
 
         <script>
 import axios from "~/plugins/axios";
@@ -46,26 +47,20 @@ import Upload from "~/components/upload/upload";
 export default {
   async asyncData() {
     let description;
-    let dates;
-    let content;
+    
 
     try {
-      let req = await axios.get("/content/en/upload/upload.json");
-      let req1 = await axios.get("/content/en/apply/apply-dates.json");
-      let req2 = await axios.get("/content/en/apply/apply-content.json");
+      let req = await axios.get("/content/en/upload/upload1.json");
+
       description = req.data.body;
-      dates = req1.data.body;
-      content = req2.data.body;
     } catch (e) {
       description = false;
-      dates = false;
-      content = false;
+      
     }
     return {
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
       description: description ? description : null,
-      dates: dates ? dates : null,
-      content: content ? content : null
+     
     };
   },
 
@@ -103,13 +98,17 @@ export default {
       for (var i = 0; i < this.files.length; i++) {
         let file = this.files[i];
         let emailData = document.getElementById("email").value;
+        let codeData = document.getElementById("code").value;
         formData.append("files[" + 0 + "]", emailData);
+        formData.append("files[" + 1 + "]", codeData);
         formData.append("files[" + i + "]", file);
       }
       if (
         this.files.length > 0 &&
         document.getElementById("email").value !== "" &&
-        document.getElementById("email").value !== null
+        document.getElementById("email").value !== null &&
+        document.getElementById("code").value !== "" &&
+        document.getElementById("code").value !== null
       ) {
         /*
           Make the request to the POST /select-files URL
@@ -127,7 +126,7 @@ export default {
             console.log("FAILURE!!");
           });
       } else {
-        alert("You Must Upload the CV,Motivation Letter before You Submit!");
+        alert("You Must Assignemnt link,Photo before You Submit!");
       }
 
       /*
@@ -137,9 +136,11 @@ export default {
         this.files.splice(0);
       }
       console.log(document.getElementById("email").value);
+      console.log(document.getElementById("code").value);
 
       document.getElementById("files").value = ""; //delete name of file after added
       document.getElementById("email").value = "";
+      document.getElementById("code").value = "";
       formData.delete("files"); //delete every thing from formData
     },
 
@@ -203,7 +204,6 @@ export default {
   cursor: pointer;
   position: relative;
 }
-
 .wrapper {
   text-align: center;
   width: 200px;
@@ -231,7 +231,6 @@ export default {
   cursor: pointer;
   position: relative;
 }
-
 .About {
   &__header {
     padding: $base-vertical-rithm * 5;
@@ -307,7 +306,6 @@ export default {
       line-height: 1;
     }
   }
-
   &__container {
     margin: 0 $base-vertical-rithm * 5;
     h1 {

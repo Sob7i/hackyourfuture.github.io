@@ -1,5 +1,5 @@
 <template>
-    <div>
+<div>
         <Main class="Apply container">
             <div class="Apply__header">
                 <h1>Join <br> Us!</h1>
@@ -7,6 +7,8 @@
                     <img src="/gallery/05.jpg">
                 </div>
                 <div class="Apply__header-dates" v-html="dates"></div>
+                <div class="Apply__content" v-html="content"></div>
+                 
             </div>
 
             <div class="Apply__content" v-html="content">
@@ -76,7 +78,7 @@
       </div>
     </Main>
 
-    </div>
+</div>
 </template>
 
 <script>

@@ -1,30 +1,40 @@
 <template>
     <div>
-      <Main class="About container">
-        <div class="About__header">
-          <div class="About__header-content">
-            <div class="About__header-dates" v-html="dates"></div>
-            <div class="About__content" v-html="content"></div>
-            <div class="About__description" v-html="description"></div>
-          </div>
-        </div>
-<template>
+        <Main class="About container">
+            <div class="About__header">
 
-<div class="uploadContainer">
-  <div class="text"><h2>Enter Your Code:</h2></div> 
+                <div class="About__header-content">
+                      <div class="About__header-dates" v-html="dates"></div>
+                      <div class="About__content" v-html="content"></div>
+                      <div class="About__description" v-html="description"></div>
+                </div>
+            </div>
+
+   
+  <div class="uploadContainer">
+      <div class="text"><h2>Your Email:</h2></div> 
+                      <div v-html="dates"></div>
+                     
+                      <div v-html="description"></div>
+                </div>
+         
+
+
+  <div class="uploadContainer">
+
+<div class="text"><h3>Enter Your Code:</h3></div> 
 
       <div class="email-input">
-         <input type="input-text" id="code" ref="code" />
+         <input type="text" id="code" ref="code" />
       </div>
 
       <br>
-       <div class="text"><h2>Your Assignment Link:</h2></div> 
+       <div class="text"><h3>Your Assignment Link:</h3></div> 
 
       <div class="email-input">
-         <input type="input-text" id="email" ref="email" />
+         <input type="text" id="email" ref="email" />
       </div>
 
-      <div class="text"><h2>Choose Photo ( Screenshot ):</h2></div>
     <div class="input-dev">
       <input class="input-button" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
@@ -33,10 +43,11 @@
       <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
     </div>   
   </div>
+
   <div class="wrapper"> 
-      <button class="submit-button" v-on:click="submitFiles()">Submit</button>
+    <button class="submit-button" v-on:click="submitFiles()">Submit</button>
     </div>
-</template>
+
                 </Main>
                 <Upload/>
             </div>
@@ -177,6 +188,7 @@ export default {
 };
 </script>
 
+
 <style lang="scss">
 .uploadContainer {
   padding: 0;
@@ -186,7 +198,9 @@ export default {
   align-content: center;
   align-items: center;
 }
+
 .text h2 {
+
   margin: auto;
   display: inline-block;
   padding: 20px;
@@ -209,10 +223,27 @@ export default {
   -moz-appearance: none;
   -ms-appearance: none;
   -o-appearance: none;
+  background-color: lightgray;
+  text-align: center;
+  display: inline-block;
+  margin: auto;
+  width: 25%;
+  padding: 0;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: relative;
+  background-color: lightgray;
+  color: black;
   font-size: 18px;
   cursor: pointer;
   position: relative;
 }
+
 .wrapper {
   text-align: center;
   width: 200px;
@@ -227,6 +258,7 @@ export default {
   font-size: 22px;
   font-weight: bold;
   margin: 0;
+
   padding: 5%;
   margin-top: 40px;
   text-transform: uppercase;
@@ -239,7 +271,9 @@ export default {
   border: 0;
   cursor: pointer;
   position: relative;
+
 }
+
 .About {
   &__header {
     padding: $base-vertical-rithm * 5;
@@ -315,6 +349,7 @@ export default {
       line-height: 1;
     }
   }
+
   &__container {
     margin: 0 $base-vertical-rithm * 5;
     h1 {
