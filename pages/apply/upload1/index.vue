@@ -5,7 +5,7 @@
 
                 <div class="About__header-content">
                       <div v-html="dates"></div>
-                      <div v-html="content"></div>
+                     
                       <div v-html="description"></div>
                 </div>
             </div>

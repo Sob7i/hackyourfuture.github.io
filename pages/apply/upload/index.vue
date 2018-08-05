@@ -5,11 +5,11 @@
 
                 <div class="About__header-content">
                       <div v-html="dates"></div>
-                      <div v-html="content"></div>
+                     
                       <div v-html="description"></div>
                 </div>
             </div>
- <template>
+ 
   <div class="uploadContainer">
       <div class="text"><h3>Your Email:</h3></div> 
 
@@ -30,12 +30,12 @@
   <div class="wrapper"> 
       <button class="button" v-on:click="submitFiles()">Submit</button>
     </div>
-</template>
+
                 </Main>
                 <Upload/>
             </div>
 
-        </template>
+</template>
 
         <script>
 import axios from "~/plugins/axios";
@@ -45,25 +45,21 @@ export default {
   async asyncData() {
     let description;
     let dates;
-    let content;
 
     try {
       let req = await axios.get("/content/en/upload/upload.json");
       let req1 = await axios.get("/content/en/apply/apply-dates.json");
-      let req2 = await axios.get("/content/en/apply/apply-content.json");
+
       description = req.data.body;
       dates = req1.data.body;
-      content = req2.data.body;
     } catch (e) {
       description = false;
       dates = false;
-      content = false;
     }
     return {
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
       description: description ? description : null,
-      dates: dates ? dates : null,
-      content: content ? content : null
+      dates: dates ? dates : null
     };
   },
 
@@ -165,7 +161,7 @@ export default {
 };
 </script>
 
-        <style lang="scss">
+<style lang="scss">
 .uploadContainer {
   padding: 0;
   margin: 0;
