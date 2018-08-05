@@ -1,37 +1,34 @@
 <template>
     <div>
-      <Main class="About container">
-        <div class="About__header">
-          <div class="About__header-content">
-            <div class="About__description" v-html="description"></div>
-          </div>
-        </div>
+        <Main class="About container">
+            <div class="About__header">
+
+                <div class="About__header-content">
+                      <div v-html="dates"></div>
+                     
+                      <div v-html="description"></div>
+                </div>
+            </div>
  
   <div class="uploadContainer">
       <div class="text"><h3>Your Email:</h3></div> 
 
       <div class="email-input">
-         <input type="input-text" id="code" ref="code" />
+         <input type="text" id="email" ref="email" />
       </div>
 
-      <br>
-       <div class="text"><h2>Your Assignment Link:</h2></div> 
+      <div><h3 class="text">Choose Your CV, Motivation Letter:</h3></div>
 
-      <div class="email-input">
-         <input type="input-text" id="email" ref="email" />
-      </div>
-
-      <div class="text"><h2>Choose Photo ( Screenshot ):</h2></div>
-    <div class="input-dev">
-      <input class="input-button" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+    <div>
+      <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
 
     <div>
-      <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
+      <div v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
     </div>   
   </div>
   <div class="wrapper"> 
-      <button class="submit-button" v-on:click="submitFiles()">Submit</button>
+      <button class="button" v-on:click="submitFiles()">Submit</button>
     </div>
 
                 </Main>

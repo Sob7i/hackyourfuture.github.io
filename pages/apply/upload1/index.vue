@@ -4,21 +4,11 @@
             <div class="About__header">
 
                 <div class="About__header-content">
-                      <div class="About__header-dates" v-html="dates"></div>
-                      <div class="About__content" v-html="content"></div>
-                      <div class="About__description" v-html="description"></div>
-                </div>
-            </div>
-
-   
-  <div class="uploadContainer">
-      <div class="text"><h2>Your Email:</h2></div> 
                       <div v-html="dates"></div>
                      
                       <div v-html="description"></div>
                 </div>
-         
-
+            </div>
 
   <div class="uploadContainer">
 
@@ -35,17 +25,18 @@
          <input type="text" id="email" ref="email" />
       </div>
 
-    <div class="input-dev">
-      <input class="input-button" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+      <div><h3 class="text">Choose Photo ( Screenshot ):</h3></div>
+
+    <div>
+      <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
 
     <div>
-      <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
+      <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
     </div>   
   </div>
-
   <div class="wrapper"> 
-    <button class="submit-button" v-on:click="submitFiles()">Submit</button>
+      <button class="button" v-on:click="submitFiles()">Submit</button>
     </div>
 
                 </Main>
