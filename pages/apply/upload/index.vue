@@ -3,11 +3,7 @@
         <Main class="About container">
             <div class="About__header">
 
-                <div class="About__header-content">
-                      <div v-html="dates"></div>
-                     
-                      <div v-html="description"></div>
-                </div>
+                <h1>Upload your CV + motivation</h1>
             </div>
  
   <div class="uploadContainer">

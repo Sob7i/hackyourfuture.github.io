@@ -4,21 +4,11 @@
             <div class="About__header">
 
                 <div class="About__header-content">
-                      <div v-html="dates"></div>
-                     
-                      <div v-html="description"></div>
                 </div>
             </div>
 
   <div class="uploadContainer">
 
-<div class="text"><h3>Enter Your Code:</h3></div> 
-
-      <div class="email-input">
-         <input type="text" id="code" ref="code" />
-      </div>
-
-      <br>
        <div class="text"><h3>Your Assignment Link:</h3></div> 
 
       <div class="email-input">
@@ -32,7 +22,7 @@
     </div>
 
     <div>
-      <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
+      <div v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
     </div>   
   </div>
   <div class="wrapper"> 
