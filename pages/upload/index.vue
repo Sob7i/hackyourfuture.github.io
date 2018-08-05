@@ -4,41 +4,36 @@
             <div class="About__header">
 
                 <div class="About__header-content">
-                      <div v-html="dates"></div>
-                      <div v-html="content"></div>
-                       <div v-html="description"></div>
+                      <div class="About__header-dates" v-html="dates"></div>
+                      <div class="About__content" v-html="content"></div>
+                      <div class="About__description" v-html="description"></div>
                 </div>
             </div>
  <template>
-  <div>
-      <h2 class="text">Your Email:</h2> 
+   
+  <div class="uploadContainer">
+      <div class="text"><h2>Your Email:</h2></div> 
 
       <div class="email-input">
          <input type="text" id="email" ref="email" />
       </div>
 
-      <div><h3  class="text">Choose Your CV, Motivation Letter:</h3></div>
+      <div class="text"><h2>Choose Your CV, Motivation Letter:</h2></div>
 
-    <div>
-      <input  class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+    <div class="input-dev">
+      <input class="input-button" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
     </div>
 
     <div>
-      <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
-    </div>
-
-    <br>
-    <!-- <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="addFiles()">Add Files</button>
-    </div> -->
-    <br>
-    <div>
-      <button class="buttonStyle" v-on:click="submitFiles()">Submit</button>
-    </div>
+      <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
+    </div>   
   </div>
+
+  <div class="wrapper"> 
+    <button class="submit-button" v-on:click="submitFiles()">Submit</button>
+    </div>
 </template>
                 </Main>
-
                 <Upload/>
             </div>
 
@@ -62,7 +57,6 @@ export default {
       dates = req1.data.body;
       content = req2.data.body;
     } catch (e) {
-      console.log(e);
       description = false;
       dates = false;
       content = false;
@@ -173,32 +167,76 @@ export default {
 };
 </script>
 
-        <style lang="scss">
-.text {
+<style lang="scss">
+.uploadContainer {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.text h2 {
   margin: auto;
   display: inline-block;
   padding: 20px;
-}
-.email-input {
-  background-color: lightgray;
-  text-align: center;
-  display: inline-block;
-  margin: auto;
-  width: 25%;
-}
-.buttonStyle {
-  display: inline-block;
-  margin: 20px;
-  background-color: lightgray;
-  color: black;
-  font-size: 18px;
+  color: $color-purple;
   font-weight: bold;
 }
+.email-input {
+  border-bottom: 2px solid $color-purple;
+  font-size: 18px;
+  padding: 5px 5px 5px 5px;
+  display: block;
+  background: transparent;
+  margin-bottom: 20px;
+}
+.input-dev {
+  margin-left: 5%;
+}
+.input-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
+
+.wrapper {
+  text-align: center;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 5 * $base-vertical-rithm;
+}
+
+.submit-button {
+  position: relative;
+  background-color: $color-purple;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5%;
+  margin-top: 40px;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  width: 100%;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+}
+
 .About {
   &__header {
-    padding: $base-vertical-rithm * 10;
+    padding: $base-vertical-rithm * 5;
     text-align: center;
-    margin-right: -100px;
+
     a {
       color: $color-purple;
       font-weight: bold;
@@ -212,9 +250,9 @@ export default {
       display: inline-block;
       width: 50%;
       text-align: center;
-      padding: $base-vertical-rithm * 10;
+      padding: $base-vertical-rithm * 5;
       & > div {
-        margin-top: $base-vertical-rithm * 5;
+        margin-top: $base-vertical-rithm * 2;
       }
     }
     &-image {
@@ -222,11 +260,58 @@ export default {
       display: inline-block;
       vertical-align: top;
     }
+    &-dates {
+      margin-left: $base-vertical-rithm * 2;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+        margin-left: 2%;
+        margin-bottom: 3%;
+      }
+      h3 {
+        font-weight: bold;
+        color: $color-purple;
+      }
+      h4 {
+        color: $color-purple;
+        font-weight: bold;
+      }
+    }
   }
-  &__container {
-    margin: 0 $base-vertical-rithm * 10;
+  &__content {
+    width: 100%;
+    margin: 0 auto;
     h1 {
-      margin-bottom: $base-vertical-rithm * 2;
+      color: $color-purple;
+      line-height: 1;
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul + p {
+      margin-top: 1rem;
+    }
+    p a {
+      font-size: 18px;
+    }
+  }
+  &__description {
+    width: 100%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
+    }
+  }
+
+  &__container {
+    margin: 0 $base-vertical-rithm * 5;
+    h1 {
+      margin-bottom: $base-vertical-rithm * 5;
       color: $color-purple;
       font-weight: normal;
       font-size: 42px;
