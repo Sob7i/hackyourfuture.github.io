@@ -19,8 +19,11 @@ module.exports = (req, res) => {
     upload(req, res, (err) => {
         if (err) {
             res.send(err);
+            res.status(500).json({ message: 'Something went wrong' });
+            
         } else {
-            res.send('your files has been uploaded');
+           res.status(200).json({ message: 'You got an email :-)'});
+            
             const newFile = {
                 applicantEmail: req.body.email,
                 cvUrl: req.file.buffer,
