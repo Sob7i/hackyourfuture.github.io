@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
+      <div class="input-remove" v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
     </div>   
   </div>
 
