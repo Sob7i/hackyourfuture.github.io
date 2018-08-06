@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const FileUpload = Upload.fields(
     [{
         name: 'files',
