@@ -10,6 +10,9 @@ const {
 
 const app = express();
 
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const FileUpload = Upload.fields(
     [{
         name: 'files',
