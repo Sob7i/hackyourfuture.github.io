@@ -10,6 +10,13 @@ const {
 
 const app = express();
 
+const FileUpload = Upload.fields(
+    [{
+        name: 'files',
+        maxCount: 1
+    }]
+);
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
