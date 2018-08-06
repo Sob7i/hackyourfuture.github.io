@@ -2,16 +2,15 @@ const AWS = require('aws-sdk');
 const template = require('lodash.template');
 const applyToStudentMessage = require('./../emails_template/apply_to_student.txt');
 const applyToOrgTemplate = template(require('./../emails_template/apply_to_org.tpl'));
-
+const appendData = require("./authentication/appendData");
+const authentication = require("./authentication/authentication")
 const fromEmail = "info@hackyourfuture.net";
 
 const AWS_CONFIG = {
     region: 'eu-west-1'
 };
 
-
 const ses = new AWS.SES(AWS_CONFIG);
-
 
 const sendEmail = (toEmail, Data, Subject) => {
 
@@ -50,26 +49,32 @@ const sendEmail = (toEmail, Data, Subject) => {
 
 module.exports = (req, res) => {
 
-    sendEmail(
-        fromEmail,
-        applyToOrgTemplate({ params: req.body }),
-        'A new student applied'
-    ).then(() => {
+    authentication.authenticate().then(auth => appendData(req, auth))
+    .then(()=>{
 
-        return sendEmail(
-            req.body.email,
-            applyToStudentMessage,
-            'Thank you for applying'
-        );
+        sendEmail(
+            fromEmail,
+            applyToOrgTemplate({ params: req.body }),
+            'A new student applied'
+        )
+    })
+    .then(() => {
 
-    }).then(() => {
+            return sendEmail(
+                req.body.email,
+                applyToStudentMessage,
+                'Thank you for applying'
+            );
+
+    })
+    .then(() => {
 
         console.log("=== ALL EMAILS ARE SENT!!!");
-        res.status(200).json({ message: 'You got an email :-)'});
+        res.status(200).json({ message: 'You got an email :-)' });
 
-    }).catch((err) => {
+    })
+    .catch((err) => {
 
-        console.log("===EMAIL NOT SENT===");
         console.log(err);
         res.status(500).json({ message: 'Something went wrong' });
 

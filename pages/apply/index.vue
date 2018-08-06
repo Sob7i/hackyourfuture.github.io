@@ -1,5 +1,5 @@
 <template>
-    <div>
+<div>
         <Main class="Apply container">
             <div class="Apply__header">
                 <h1>Join <br> Us!</h1>
@@ -7,13 +7,14 @@
                     <img src="/gallery/05.jpg">
                 </div>
                 <div class="Apply__header-dates" v-html="dates"></div>
+                 
             </div>
 
             <div class="Apply__content" v-html="content">
             </div>
 
             <div class="Apply__form form">
-                <form :action="formUrl" method="POST">
+                <form :action="formUrlApply" method="POST">
                     <fieldset>
                         <div class="half-width inputContainer">
                             <label for="userName">Name</label>
@@ -49,12 +50,12 @@
                         <div class="full-width inputContainer">
 
                             <label for="eductation">Educational Background</label>
-                            <input type="eductation" id="eductation" class="input" name="eductation" @focus="setActive">
+                            <input type="eductation" id="education" class="input" name="education" @focus="setActive">
                         </div>
                         <div class="full-width inputContainer">
 
                             <label for="how-hear">How did you hear about us?</label>
-                            <input type="how-hear" id="how-hear" class="input" name="how-hear" @focus="setActive" >
+                            <input type="how-hear" id="how-hear" class="input" name="how_hear" @focus="setActive" >
                         </div>
                         <div class="full-width computer inputContainer">
 
@@ -72,14 +73,15 @@
             </div>
         </Main>
 
-    </div>
+</div>
 </template>
 
 <script>
- import axios from '~/plugins/axios'
+import axios from "~/plugins/axios";
+let content;
 
- export default {
-     async asyncData () {
+export default {
+  async asyncData () {
          let dates
          let content
          try {
@@ -93,7 +95,7 @@
              content = false
          }
          return {
-             formUrl: process.env.lambdaUrl,
+             formUrlApply: process.env.lambdaUrl + "apply",
              siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
              dates: dates ? dates : null,
              content: content ? content : null
@@ -101,10 +103,12 @@
      },
      methods: {
         setActive(e) {
-            this.$el.querySelectorAll('.input').forEach(function(i) {
-            if(i.value.length == 0) { i.parentNode.classList.remove('active');}
-            });
-            e.target.parentNode.classList.add('active'); 
+          this.$el.querySelectorAll(".input").forEach((i) => {
+            if (i.value.length == 0) {
+              i.parentNode.classList.remove("active");
+            }
+          });
+          e.target.parentNode.classList.add("active");
         }
      },
      mounted: function(){
@@ -114,44 +118,84 @@
             });
      }
  }
+
+    }
+};
+
 </script>
 
 <style lang="scss">
- .Apply {
-     &__header {
-         padding: $base-vertical-rithm * 10;
-         h1 {
-             margin: $base-vertical-rithm * 10;
-             margin-bottom: $base-vertical-rithm * 2;
-             width: 20%;
-             color: $color-purple;
-             font-weight: bold;
-             font-size: 52px;
-             line-height: 60px;
-             display: inline-block;
-         }
-         &-image {
-             width: 55%;
-             display: inline-block;
-         }
-         &-dates {
-             margin-left: $base-vertical-rithm * 5;
-             width: 10%;
-             display: inline-block;
-             vertical-align: top;
-             h3 {
-                 font-weight: bold;
-             }
-         }
-     }
-     &__content {
-         width: 70%;
-         margin: 0 auto;
-     }
-     &__form {
-         width: 75%;
-         margin-left: 2.5%;
-         padding: $base-vertical-rithm * 10;
-     }
- }
+.Apply {
+  &__header {
+    padding: $base-vertical-rithm * 10;
+    h1 {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      width: 20%;
+      color: $color-purple;
+      font-weight: bold;
+      font-size: 52px;
+      line-height: 60px;
+      display: inline-block;
+    }
+    &-image {
+      width: 55%;
+      display: inline-block;
+    }
+    &-dates {
+      margin-left: $base-vertical-rithm * 15;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+      }
+      h3 {
+        font-weight: bold;
+        color: $color-purple;
+      }
+      h4 {
+        color: $color-purple;
+        font-weight: bold;
+      }
+    }
+  }
+  &__content {
+    width: 70%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul + p {
+      margin-top: 1rem;
+    }
+  }
+  &__form {
+    width: 75%;
+    margin-left: 2.5%;
+    padding: $base-vertical-rithm * 10;
+    p,
+    h1 {
+      margin-left: 50px;
+      color: $color-purple;
+    }
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      width: 60%;
+      line-height: 36px;
+    }
+    p {
+      margin-top: $base-vertical-rithm * 10;
+      font-weight: bold;
+      font-size: 24px;
+    }
+  }
+}
 </style>
