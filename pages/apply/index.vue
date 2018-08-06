@@ -1,5 +1,5 @@
 <template>
-    <div>
+<div>
         <Main class="Apply container">
             <div class="Apply__header">
                 <h1>Join <br> Us!</h1>
@@ -7,7 +7,6 @@
                     <img src="/gallery/05.jpg">
                 </div>
                 <div class="Apply__header-dates" v-html="dates"></div>
-                <div class="Apply__content" v-html="content"></div>
                  
             </div>
 
@@ -74,7 +73,7 @@
             </div>
         </Main>
 
-    </div>
+</div>
 </template>
 
 <script>
@@ -82,7 +81,7 @@ import axios from "~/plugins/axios";
 let content;
 
 export default {
-     async asyncData () {
+  async asyncData () {
          let dates
          let content
          try {
@@ -159,6 +158,7 @@ export default {
     margin: 0 auto;
     h1 {
       color: $color-purple;
+      line-height: 1;
     }
     ul li {
       list-style: disc;

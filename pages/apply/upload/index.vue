@@ -3,11 +3,7 @@
         <Main class="About container">
             <div class="About__header">
 
-                <div class="About__header-content">
-                      <div v-html="dates"></div>
-                     
-                      <div v-html="description"></div>
-                </div>
+                <h1>Upload your CV + motivation</h1>
             </div>
  
   <div class="uploadContainer">
@@ -24,7 +20,7 @@
     </div>
 
     <div>
-      <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
+      <div v-for="(file, key) in files" :key="key">{{file.name}} <button v-on:click="removeFile( key )">Remove</button></div>
     </div>   
   </div>
   <div class="wrapper"> 
@@ -44,22 +40,20 @@ import Upload from "~/components/upload/upload";
 export default {
   async asyncData() {
     let description;
-    let dates;
+    
 
     try {
-      let req = await axios.get("/content/en/upload/upload.json");
-      let req1 = await axios.get("/content/en/apply/apply-dates.json");
+      let req = await axios.get("/content/en/upload/upload1.json");
 
       description = req.data.body;
-      dates = req1.data.body;
     } catch (e) {
       description = false;
-      dates = false;
+      
     }
     return {
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
       description: description ? description : null,
-      dates: dates ? dates : null
+     
     };
   },
 
@@ -97,13 +91,17 @@ export default {
       for (var i = 0; i < this.files.length; i++) {
         let file = this.files[i];
         let emailData = document.getElementById("email").value;
+        let codeData = document.getElementById("code").value;
         formData.append("files[" + 0 + "]", emailData);
+        formData.append("files[" + 1 + "]", codeData);
         formData.append("files[" + i + "]", file);
       }
       if (
         this.files.length > 0 &&
         document.getElementById("email").value !== "" &&
-        document.getElementById("email").value !== null
+        document.getElementById("email").value !== null &&
+        document.getElementById("code").value !== "" &&
+        document.getElementById("code").value !== null
       ) {
         /*
           Make the request to the POST /select-files URL
@@ -121,7 +119,7 @@ export default {
             console.log("FAILURE!!");
           });
       } else {
-        alert("You Must Upload the CV,Motivation Letter before You Submit!");
+        alert("You Must Assignemnt link,Photo before You Submit!");
       }
 
       /*
@@ -131,9 +129,11 @@ export default {
         this.files.splice(0);
       }
       console.log(document.getElementById("email").value);
+      console.log(document.getElementById("code").value);
 
       document.getElementById("files").value = ""; //delete name of file after added
       document.getElementById("email").value = "";
+      document.getElementById("code").value = "";
       formData.delete("files"); //delete every thing from formData
     },
 
@@ -170,32 +170,59 @@ export default {
   align-content: center;
   align-items: center;
 }
-.text {
+.text h2 {
   margin: auto;
   display: inline-block;
   padding: 20px;
+  color: $color-purple;
+  font-weight: bold;
 }
 .email-input {
-  background-color: lightgray;
-  text-align: center;
-  display: inline-block;
-  margin: auto;
-  width: 25%;
-  padding: 0;
+  border-bottom: 2px solid $color-purple;
+  font-size: 18px;
+  padding: 5px 5px 5px 5px;
+  display: block;
+  background: transparent;
+  margin-bottom: 20px;
 }
-
+.input-dev {
+  margin-left: 5%;
+}
+.input-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
 .wrapper {
   text-align: center;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 5 * $base-vertical-rithm;
 }
 
-.button {
+.submit-button {
   position: relative;
-  background-color: lightgray;
-  color: black;
-  font-size: 18px;
+  background-color: $color-purple;
+  color: white;
+  font-size: 22px;
   font-weight: bold;
   margin: 0;
+  padding: 5%;
   margin-top: 40px;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  width: 100%;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  position: relative;
 }
 .About {
   &__header {
@@ -224,6 +251,52 @@ export default {
       width: 50%;
       display: inline-block;
       vertical-align: top;
+    }
+    &-dates {
+      margin-left: $base-vertical-rithm * 2;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+        margin-left: 2%;
+        margin-bottom: 3%;
+      }
+      h3 {
+        font-weight: bold;
+        color: $color-purple;
+      }
+      h4 {
+        color: $color-purple;
+        font-weight: bold;
+      }
+    }
+  }
+  &__content {
+    width: 100%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul + p {
+      margin-top: 1rem;
+    }
+    p a {
+      font-size: 18px;
+    }
+  }
+  &__description {
+    width: 100%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
     }
   }
   &__container {
