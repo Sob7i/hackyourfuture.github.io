@@ -7,7 +7,6 @@
                     <img src="/gallery/05.jpg">
                 </div>
                 <div class="Apply__header-dates" v-html="dates"></div>
-                <div class="Apply__content" v-html="content"></div>
                  
             </div>
 
