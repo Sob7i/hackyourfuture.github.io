@@ -1,6 +1,3 @@
-const express = require('express');
-const multer = require('multer');
-const app = express();
 const {
     updateApplicant
 } = require("../data");
@@ -24,8 +21,7 @@ module.exports = (req, res) => {
                 '** Confirmation email **',
                 'We\'ve received your files'
             );
-        })
-        .then(() => {
+        }).then(() => {
             res.send({
                 message: 'you got an email :-)'
             });

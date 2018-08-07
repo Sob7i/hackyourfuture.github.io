@@ -9,7 +9,7 @@
  * @param {string} applicant.phone
  * @param {string} applicant.education
  */
-function createApplicant(applicant) {
+async function createApplicant(applicant) {
 
 }
 

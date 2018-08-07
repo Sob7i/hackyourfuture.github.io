@@ -2,6 +2,8 @@ const express = require('express');
 const expressValidator = require("express-validator");
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const multer = require('multer');
+
 const {
     Apply,
     ContactUs,
@@ -10,13 +12,12 @@ const {
 
 const app = express();
 
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const FileUpload = Upload.fields(
+const FileUpload = upload.fields(
     [{
         name: 'files',
-        maxCount: 1
+        maxCount: 2
     }]
 );
 
@@ -24,14 +25,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
-
-app.use((req, res, next) => {
-    console.log('--- Debug request ---');
-    console.log(req);
-    console.log('--- End Debug request ---');
-    next();
-});
-
 
 app.post('/apply', (req, res) => {
     req.check("userName", "Username is too short").isLength({min: 3}).isString();
@@ -54,6 +47,6 @@ app.post('/apply', (req, res) => {
 });
 app.post('/contact-us', (req, res) => ContactUs(req, res));
 app.post('/apply', (req, res) => Apply(req, res));
-app.post('/upload', (req, res) => Upload(req, res));
+app.post('/upload', FileUpload, (req, res) => Upload(req, res));
 
 module.exports = app;
