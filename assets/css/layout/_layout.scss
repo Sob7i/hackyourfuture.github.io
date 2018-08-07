@@ -18,39 +18,42 @@ span.underline {
 }
 
 .form {
-  .half-width, .full-width {
+  .half-width,
+  .full-width {
     display: inline-block;
-    position:relative; 
-    border-bottom:2px solid $color-purple;
+    position: relative;
+    border-bottom: 2px solid $color-purple;
     margin: 25px 50px;
     vertical-align: top;
   }
   .half-width {
-    width: calc(50% - 100px)  
+    width: calc(50% - 100px)
   }
   .full-width {
-    width: calc(100% - 100px)  
+    width: calc(100% - 100px)
   }
 }
+
 input {
-  font-size:18px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  width:100%;
-  border:none;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
   background: transparent;
 }
 
 select {
-  border:none;
+  border: none;
   background: transparent;
   display: block;
   margin: 10px 10px 10px 5px;
-  font-size:24px;
+  font-size: 24px;
   color: $color-purple;
   width: 100%;
 }
-.computer select{
+
+.computer select {
   width: 25%;
   float: right;
   margin: 8px 0px;
@@ -61,7 +64,8 @@ select {
   margin: 0 auto;
   margin-top: 5 * $base-vertical-rithm;
 }
-.apply-btn input{
+
+.apply-btn input {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -76,26 +80,28 @@ select {
   border: 0;
   cursor: pointer;
   position: relative;
-  
 }
 
-input:focus 		{ outline:none; }
+input:focus {
+  outline: none;
+}
 
 label {
-  color: $color-purple;; 
-  font-size:24px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
+  color: $color-purple;
+  ;
+  font-size: 24px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 }
 
-.active label	{
-  top:-20px;
-  font-size:14px;
+.active label {
+  top: -20px;
+  font-size: 18px;
   color: $color-purple;
 }

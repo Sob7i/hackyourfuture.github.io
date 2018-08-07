@@ -4,21 +4,14 @@
             <div class="About__header">
 
                 <div class="About__header-content">
-                      <div v-html="dates"></div>
+                      <!-- <div v-html="dates"></div> -->
                      
                       <div v-html="description"></div>
                 </div>
             </div>
  <template>
   <div class="uploadContainer">
-
-<div class="text"><h3>Enter Your Code:</h3></div> 
-
-      <div class="email-input">
-         <input type="text" id="code" ref="code" />
-      </div>
-
-      <br>
+    
        <div class="text"><h3>Your Assignment Link:</h3></div> 
 
       <div class="email-input">

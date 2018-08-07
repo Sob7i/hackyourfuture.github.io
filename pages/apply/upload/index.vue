@@ -1,65 +1,84 @@
 <template>
-    <div>
-        <Main class="About container">
-            <div class="About__header">
-
-                <div class="About__header-content">
-                      <div v-html="dates"></div>
-                     
-                      <div v-html="description"></div>
-                </div>
+        <div>
+        <Main class="Apply container">
+            <div class="Apply__header">
+                <h1>Upload CV & Motivation Letter!</h1>
+                <div class="Apply__header-image"></div>
+                <!-- <div class="Apply__header-dates" v-html="dates"></div>
+                <div class="Apply__content" v-html="content"></div> -->  
             </div>
- 
-  <div class="uploadContainer">
-      <div class="text"><h3>Your Email:</h3></div> 
+<!-- <div>Do You Have CV file?
+  
+<input type="radio" name="radio" value="Yes" id="cvYes" v-on:click="showCvDiv()"> YES
+  
+<input type="radio" name="radio" value="No" id="cvNo" v-on:click="showCvText()"> NO
+    
+ </div> -->
+            <div class="Apply__form form">
+                <form>
+                    <fieldset>   
 
-      <div class="email-input">
-         <input type="text" id="email" ref="email" />
-      </div>
+                        <div id="cvDiv">
+                            <P><img src="/gallery/add_file1.png" v-on:click="openUploadFileDialogue()"  class="imageIcon" align="middle" />Upload Your CV (*)</P>                           
+                            <input type="file" class="text" id="file" ref="file" v-on:change="handleFileUpload()" />
+                            <div  class="text"><p id="cvLabel"></p></div>
+                        </div>
 
-      <div><h3 class="text">Choose Your CV, Motivation Letter:</h3></div>
+                      
+                         <div id="mlDiv">
+                            <P><img src="/gallery/fileuploadicon.png" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Your Motivation Letter (*)</P>                           
+                            <input type="file" class="text" id="file1" ref="file1" v-on:change="handleFileUpload1()" />
+                            <div id="mlLabel" class="text"></div>
+                        </div>
 
-    <div>
-      <input class="text" type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
-    </div>
+                        <div class="half-width inputContainer">
+                            <label for="email">e-mail (*)</label>
+                            <input type="email" id="email" ref="email" class="input" name="email" value="" v-on:change="handleEmail()" @focus="setActive">
+                        </div>
 
-    <div>
-      <div v-for="(file, key) in files" :key="key">{{file.name}} <span v-on:click="removeFile( key )">Remove</span></div>
-    </div>   
-  </div>
-  <div class="wrapper"> 
-      <button class="button" v-on:click="submitFiles()">Submit</button>
-    </div>
+                      
+                          <div class="full-width inputContainer">
+                            <label for="message">What would you like to contact us about?</label>
+                            <input type="message" id="message" ref="message" name="message" value="" v-on:change="handleMessage()" @focus="setActive">
+                          </div>
 
-                </Main>
-                <Upload/>
+                           
+                        <div class="apply-btn">
+                            <input type="submit" value="Apply" v-on:click.prevent="submitFile">
+                        </div>
+                       
+                    </fieldset>
+                </form>
+            </div>
+          </Main>
+               
             </div>
 
 </template>
 
-        <script>
+<script>
 import axios from "~/plugins/axios";
 import Upload from "~/components/upload/upload";
 
 export default {
   async asyncData() {
-    let description;
-    let dates;
+    // let description;
+    //  let dates;
 
     try {
-      let req = await axios.get("/content/en/upload/upload.json");
-      let req1 = await axios.get("/content/en/apply/apply-dates.json");
-
-      description = req.data.body;
-      dates = req1.data.body;
+      //   let req = await axios.get("/content/en/upload/upload.json");
+      //    let req1 = await axios.get("/content/en/apply/apply-dates.json"); // im
+      // description = req.data.body;
+      // dates = req1.data.body;
     } catch (e) {
-      description = false;
-      dates = false;
+      // description = false;
+      // dates = false;
     }
     return {
-      siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I",
-      description: description ? description : null,
-      dates: dates ? dates : null
+      formUrlApply: process.env.lambdaUrl + "apply/upload",
+      siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I"
+      // description: description ? description : null,
+      // dates: dates ? dates : null
     };
   },
 
@@ -69,47 +88,45 @@ export default {
 
   data() {
     return {
-      files: []
+      file: "",
+      file1: "",
+      email: "",
+      message: ""
     };
   },
 
-  methods: {
-    /*
-        Adds a file
-    */
-    addFiles() {
-      this.$refs.files.click();
-    },
+  mounted: function() {
+    console.log("Hi the Page Loaded Successfully!");
+    // this.hideMlDiv();
+    // this.hideCvDiv();
+    // this.hideCvText();
+  },
 
-    /*
-        Submits files to the server
-      */
-    submitFiles() {
+  methods: {
+    submitFile() {
       /*
-          Initialize the form data
-        */
+                Initialize the form data
+      */
       let formData = new FormData();
 
       /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-      for (var i = 0; i < this.files.length; i++) {
-        let file = this.files[i];
-        let emailData = document.getElementById("email").value;
-        formData.append("files[" + 0 + "]", emailData);
-        formData.append("files[" + i + "]", file);
-      }
+                Add the form data we need to submit
+      */
+      formData.append("file", this.file);
+      formData.append("file1", this.file1);
+
+      /*
+          Make the request to the POST /single-file URL
+      */
       if (
-        this.files.length > 0 &&
         document.getElementById("email").value !== "" &&
-        document.getElementById("email").value !== null
+        document.getElementById("email").value !== null &&
+        document.getElementById("email").value !== "Required field" &&
+        document.getElementById("cvLabel").innerHTML !== "" &&
+        document.getElementById("mlLabel").innerHTML !== ""
       ) {
-        /*
-          Make the request to the POST /select-files URL
-        */
         axios
-          .post("/upload", formData, {
+          .post("/apply/upload", formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
@@ -121,47 +138,127 @@ export default {
             console.log("FAILURE!!");
           });
       } else {
-        alert("You Must Upload the CV,Motivation Letter before You Submit!");
-      }
+        if (document.getElementById("email").value === "") {
+          if (document.getElementById("email").value === "") {
+            document
+              .getElementById("email")
+              .parentNode.classList.remove("active");
+          }
+          document.getElementById("email").parentNode.classList.add("active");
+          document.getElementById("email").value = "Required field";
+        }
 
-      /*
-        remove all uploaded files after submitted
-        */
-      for (var i = 0; i < this.files.length; i++) {
-        this.files.splice(0);
+        if (document.getElementById("cvLabel").innerHTML === "") {
+          document.getElementById("cvLabel").innerHTML = "Required field";
+        }
+        if (document.getElementById("mlLabel").innerHTML === "") {
+          document.getElementById("mlLabel").innerHTML = "Required field";
+        }
       }
-      console.log(document.getElementById("email").value);
-
-      document.getElementById("files").value = ""; //delete name of file after added
-      document.getElementById("email").value = "";
-      formData.delete("files"); //delete every thing from formData
     },
 
     /*
-        Handles the uploading of files
-      */
-    handleFilesUpload() {
-      let uploadedFiles = this.$refs.files.files;
-      /*
-          Adds the uploaded file to the files array
-        */
-      for (var i = 0; i < uploadedFiles.length; i++) {
-        this.files.push(uploadedFiles[i]);
-      }
-      document.getElementById("files").value = "";
+        Handles a change on the file upload
+    */
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      console.log(this.file.name);
+      document.getElementById("cvLabel").value = this.file.name;
     },
 
+    handleFileUpload1() {
+      this.file1 = this.$refs.file1.files[0];
+      console.log(this.file1.name);
+      document.getElementById("mlLabel").innerHTML = this.file1.name;
+    },
+
+    handleEmail() {
+      this.email = this.$refs.email;
+      console.log(this.email.value);
+      document.getElementById("email").value = this.email.value;
+    },
+
+    handleMessage() {
+      this.message = this.$refs.message;
+      console.log(this.message.value);
+      document.getElementById("message").value = this.message.value;
+    },
+
+    /*
+        Handles when the image clicked
+    */
+
+    openUploadFileDialogue() {
+      document.getElementById("file").click();
+    },
+
+    openUploadFileDialogue1() {
+      document.getElementById("file1").click();
+    },
     /*
         Removes a select file the user has uploaded
-      */
+    */
     removeFile(key) {
-      this.files.splice(key, 1);
+      this.file.splice(key, 1);
+    },
+
+    setActive(e) {
+      this.$el.querySelectorAll(".input").forEach(i => {
+        if (i.value.length == 0) {
+          i.parentNode.classList.remove("active");
+        }
+      });
+      e.target.parentNode.classList.add("active");
+    },
+
+    hideCvDiv() {
+      var x = document.getElementById("cvDiv");
+
+      x.style.display = "none";
+    },
+    showCvDiv() {
+      this.hideCvText();
+      var x = document.getElementById("cvDiv");
+      x.style.display = "block";
+    },
+
+    hideMlDiv() {
+      var x = document.getElementById("mlDiv");
+
+      x.style.display = "none";
+    },
+
+    hideCvText() {
+      var x = document.getElementById("cvText");
+      x.style.display = "none";
+    },
+    showCvText() {
+      this.hideCvDiv();
+      var x = document.getElementById("cvText");
+      x.style.display = "block";
     }
   }
 };
 </script>
 
 <style lang="scss">
+.inputCV {
+  display: inline-block;
+  position: relative;
+  border-bottom: 2px solid $color-purple;
+  margin: 25px 50px;
+  vertical-align: top;
+}
+.pText {
+  margin-top: $base-vertical-rithm * 10;
+  font-weight: bold;
+  font-size: 24px;
+}
+.imageIcon {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
 .uploadContainer {
   padding: 0;
   margin: 0;
@@ -171,9 +268,13 @@ export default {
   align-items: center;
 }
 .text {
-  margin: auto;
-  display: inline-block;
-  padding: 20px;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: none;
 }
 .email-input {
   background-color: lightgray;
@@ -196,6 +297,79 @@ export default {
   font-weight: bold;
   margin: 0;
   margin-top: 40px;
+}
+.Apply {
+  &__header {
+    padding: $base-vertical-rithm * 10;
+    h1 {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      width: 100%;
+      color: $color-purple;
+      font-weight: bold;
+      font-size: 52px;
+      line-height: 60px;
+      display: inline-block;
+    }
+    &-image {
+      width: 55%;
+      display: inline-block;
+    }
+    &-dates {
+      margin-left: $base-vertical-rithm * 15;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+      }
+      h3 {
+        font-weight: bold;
+        color: $color-purple;
+      }
+      h4 {
+        color: $color-purple;
+        font-weight: bold;
+      }
+    }
+  }
+  &__content {
+    width: 70%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul + p {
+      margin-top: 1rem;
+    }
+  }
+  &__form {
+    width: 75%;
+    margin-left: 2.5%;
+    padding: $base-vertical-rithm * 10;
+
+    p,
+    h1 {
+      margin-left: 50px;
+      color: $color-purple;
+    }
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      width: 60%;
+      line-height: 36px;
+    }
+    p {
+      margin-top: $base-vertical-rithm * 10;
+      font-weight: bold;
+      font-size: 24px;
+    }
+  }
 }
 .About {
   &__header {
