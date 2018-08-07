@@ -9,13 +9,6 @@ const {
 } = require("../sendEmail");
 
 
-
-module.exports = (req, res) => {
-    const {
-        email
-    } = req.body;
-};
-
 module.exports = (req, res) => {
     const {
         email,
