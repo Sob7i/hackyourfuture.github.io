@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const multer = require('multer');
 const {
     Apply,
     ContactUs,
@@ -18,10 +19,10 @@ app.use(bodyParser.urlencoded({
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const FileUpload = Upload.fields(
+const FileUpload = upload.fields(
     [{
         name: 'files',
-        maxCount: 1
+        maxCount: 2
     }]
 );
 
@@ -34,6 +35,6 @@ app.use((req, res, next) => {
 
 app.post('/contact-us', (req, res) => ContactUs(req, res));
 app.post('/apply', (req, res) => Apply(req, res));
-app.post('/upload', (req, res) => Upload(req, res));
+app.post('/upload', FileUpload, (req, res) => Upload(req, res));
 
 module.exports = app;

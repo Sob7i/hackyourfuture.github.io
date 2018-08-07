@@ -1,20 +1,10 @@
-const express = require('express');
-const multer = require('multer');
-const app = express();
 const {
     updateApplicant
 } = require("../data");
+
 const {
     sendEmail
 } = require("../sendEmail");
-
-
-
-module.exports = (req, res) => {
-    const {
-        email
-    } = req.body;
-};
 
 module.exports = (req, res) => {
     const {
