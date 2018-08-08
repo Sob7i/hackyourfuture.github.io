@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="half-width inputContainer">
-                            <label for="email">e-mail (*)</label>
+                            <label for="email">Click to enter e-mail(*)</label>
                             <input type="email" id="email" ref="email" class="input" name="email" value="" v-on:change="handleEmail()" @focus="setActive">
                         </div>
 
@@ -40,7 +40,10 @@
                             <input type="message" id="message" ref="message" name="message" value="" v-on:change="handleMessage()" @focus="setActive">
                           </div>
 
-                           
+                        <div class="Apply__header">
+                        <h6>NOTE: (*) indicates compulsory field.</h6>
+            </div>
+
                         <div class="apply-btn">
                             <input type="submit" value="Apply" v-on:click.prevent="submitFile">
                         </div>
