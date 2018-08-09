@@ -15,10 +15,10 @@
                         </div>
                       
                          <div id="assiDiv">
-                            <P><img src="/gallery/06.jpg" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Assignment screenshot (*)</P>                           
+                            <P><img src="/gallery/06.svg" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Assignment screenshot (*)</P>                           
                             <input type="file" class="text" id="file1" ref="file1" v-on:change="handleFileUpload1()" />
                             <div id="assiName"><span id="assiLabel"></span>
-                            <img src="/gallery/07.jpg" class="imageIcon" @click="removeAssiFile()"/>                                                         
+                            <img src="/gallery/07.svg" class="imageIcon" @click="removeAssiFile()"/>                                                         
                             </div>
                         </div>
 
@@ -35,7 +35,7 @@
 
                            
                         <div class="apply-btn">
-                            <input type="submit" value="Apply" v-on:click.prevent="submitFile">
+                            <input type="submit" value="Apply" v-on:click.prevent="submitFile" true>
                         </div>
                     </fieldset>
                 </form>
@@ -70,7 +70,6 @@ export default {
   },
 
   mounted: function() {
-    console.log("Hi the Page Loaded Successfully!");
     this.assiNameHide();
   },
 
@@ -81,6 +80,8 @@ export default {
       //  Add the form data we need to submit
       formData.append("file", this.file);
       formData.append("file1", this.file1);
+      formData.append("email", this.email.value);
+      formData.append("message", this.message.value);
       //  Make the request to the POST /single-file URL
       if (
         document.getElementById("email").value !== "" &&
@@ -126,9 +127,11 @@ export default {
 
         if (document.getElementsByClassName("imageIcon").innerHTML === "") {
           document.getElementsByClassName("imageIcon").innerHTML =
-            "Upload Assignment screenshot (*)  Required field";
+            "Required field";
         }
       }
+      document.getElementById("assignmentUploadForm").reset();
+      this.removeAssiFile();
     },
     // Handles a change on the file upload
     handleFileUpload() {
@@ -159,7 +162,6 @@ export default {
     },
 
     // Handles when the image clicked
-
     openUploadFileDialogue() {
       document.getElementById("file").click();
     },
@@ -186,7 +188,6 @@ export default {
 
     hideAssiDiv() {
       var x = document.getElementById("assiDiv");
-
       x.style.display = "none";
     },
 
@@ -201,93 +202,7 @@ export default {
   }
 };
 </script>
-
 <style lang="scss">
-.pText {
-  margin-top: $base-vertical-rithm * 10;
-  font-weight: bold;
-  font-size: 18px;
-  float: left;
-  margin-left: 100px;
-}
-.imageIcon {
-  width: 30px;
-  height: 30px;
-  margin: 10px;
-}
-
-#assiLabel {
-  margin: $base-vertical-rithm * 10;
-  margin-bottom: $base-vertical-rithm * 2;
-  margin-left: 60px;
-  font-size: 14px;
-  line-height: 5px;
-  display: inline-block;
-}
-.uploadContainer {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-}
-.text {
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  background: transparent;
-  display: none;
-}
-.email-input {
-  border-bottom: 2px solid $color-purple;
-  font-size: 18px;
-  padding: 5px 5px 5px 5px;
-  display: block;
-  background: transparent;
-  margin-bottom: 20px;
-}
-.input-dev {
-  margin-left: 5%;
-}
-.input-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  font-size: 18px;
-  cursor: pointer;
-  position: relative;
-}
-.wrapper {
-  text-align: center;
-  width: 200px;
-  margin: 0 auto;
-  margin-top: 5 * $base-vertical-rithm;
-}
-
-.submit-button {
-  position: relative;
-  background-color: $color-purple;
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  margin: 0;
-  padding: 5%;
-  margin-top: 40px;
-  text-transform: uppercase;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  width: 100%;
-  text-transform: uppercase;
-  border: 0;
-  cursor: pointer;
-  position: relative;
-}
 .Apply {
   &__header {
     padding: $base-vertical-rithm * 10;
@@ -305,44 +220,12 @@ export default {
       width: 55%;
       display: inline-block;
     }
-    &-dates {
-      margin-left: $base-vertical-rithm * 15;
-      margin-top: $base-vertical-rithm * 15;
-      width: 100%;
-      display: inline-block;
-      vertical-align: top;
-      div {
-        display: inline-block;
-        width: calc(25% - 20px);
-      }
-      h3 {
-        font-weight: bold;
-        color: $color-purple;
-      }
-      h4 {
-        color: $color-purple;
-        font-weight: bold;
-      }
-    }
   }
-  &__content {
-    width: 70%;
-    margin: 0 auto;
-    h1 {
-      color: $color-purple;
-    }
-    ul li {
-      list-style: disc;
-    }
-    ul + p {
-      margin-top: 1rem;
-    }
-  }
+
   &__form {
     width: 75%;
     margin-left: 2.5%;
     padding: $base-vertical-rithm * 10;
-
     p,
     h1 {
       margin-left: 50px;
@@ -358,6 +241,31 @@ export default {
       margin-top: $base-vertical-rithm * 10;
       font-weight: bold;
       font-size: 24px;
+    }
+
+    .imageIcon {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+    }
+
+    #assiLabel {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      margin-left: 60px;
+      font-size: 14px;
+      line-height: 5px;
+      display: inline-block;
+    }
+
+    .text {
+      font-size: 18px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      background: transparent;
+      display: none;
     }
   }
 }

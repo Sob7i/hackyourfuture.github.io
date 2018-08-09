@@ -10,18 +10,18 @@
                 <form>
                     <fieldset>   
                         <div id="cvDiv">
-                            <P><img src="/gallery/06.jpg" v-on:click="openUploadFileDialogue()" disabled class="imageIcon" align="middle" />Upload Your CV (*)</P>                           
+                            <P><img src="/gallery/06.svg" v-on:click="openUploadFileDialogue()" disabled class="imageIcon" align="middle" />Upload Your CV (*)</P>                           
                             <input type="file" class="text" id="file" ref="file" v-on:change="handleFileUpload()" />
                             <div id="cvName"><span id="cvLabel"></span>
-                            <img src="/gallery/07.jpg" class="imageIcon" @click="removeCvFile()" />                          
+                            <img src="/gallery/07.svg" class="imageIcon" @click="removeCvFile()" />                          
                             </div>
                         </div>
 
                         <div id="cvDiv2">
-                          <div class="div1">
+                          <div class="insideaDiv">
                           <p class="cv2Lable">If you don't have a CV:</p>
                               <div class="checkboxFour">
-                              <input type="checkbox" value="" id="cv2Check" name="check" v-on:click="showCV2()" style="margin-top: 5px;>" />
+                              <input type="checkbox" value="" id="cv2Check" name="check" v-on:click="showCV2()" />
                               <label for="cv2Check"></label>
                             </div>
                             </div>
@@ -29,18 +29,18 @@
                         </div>
 
                          <div id="mlDiv">
-                            <P><img src="/gallery/06.jpg" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Your Motivation Letter (*)</P>                           
+                            <P><img src="/gallery/06.svg" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Your Motivation Letter (*)</P>                           
                             <input type="file" class="text" id="file1" ref="file1" v-on:change="handleFileUpload1()" />
                             <div id="mlName"><span id="mlLabel"></span>
-                            <img src="/gallery/07.jpg" class="imageIcon" @click="removeMlFile()"/>                                                         
+                            <img src="/gallery/07.svg" class="imageIcon" @click="removeMlFile()"/>                                                         
                             </div>
                         </div>
                         
                         <div id="mlDiv2">
-                          <div class="div1">
+                          <div class="insideaDiv">
                           <p class="ml2Lable">If you don't have a Motivation letter:</p>
                               <div class="checkboxFour">
-                              <input type="checkbox" value="" id="ml2Check" name="check" v-on:click="showML2()"  style="margin-top: 5px;>" />
+                              <input type="checkbox" value="" id="ml2Check" name="check" v-on:click="showML2()" />
                               <label for="ml2Check"></label>
                               </div>
                               </div>
@@ -60,7 +60,7 @@
 
                            
                         <div class="apply-btn">
-                            <input type="submit" value="Apply" v-on:click.prevent="submitFile">
+                            <input type="submit" value="Apply" v-on:click.prevent="submitFile" true>
                         </div>
                     </fieldset>
                 </form>
@@ -82,11 +82,9 @@ export default {
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I"
     };
   },
-
   components: {
     Upload
   },
-
   data() {
     return {
       file: "",
@@ -97,7 +95,6 @@ export default {
   },
 
   mounted: function() {
-    console.log("Hi the Page Loaded Successfully!");
     this.cvNameHide();
     this.mlNameHide();
     this.cvTextHide();
@@ -106,26 +103,32 @@ export default {
 
   methods: {
     submitFile() {
-      /*
-                Initialize the form data
-      */
+      // Initialize the form data
       let formData = new FormData();
+      //  Add the form data we need to submit
+      if (document.getElementById("file").files.length !== 0) {
+        formData.append("file", this.file);
+      } else {
+        formData.append("file", document.getElementById("cvText").value);
+      }
 
-      /*
-                Add the form data we need to submit
-      */
-      formData.append("file", this.file);
-      formData.append("file1", this.file1);
+      if (document.getElementById("file1").files.length !== 0) {
+        formData.append("file1", this.file1);
+      } else {
+        formData.append("file1", document.getElementById("mlText").value);
+      }
 
-      /*
-          Make the request to the POST /single-file URL
-      */
+      formData.append("email", this.email.value);
+      formData.append("message", this.message.value);
+      //  Make the request to the POST /single-file URL
       if (
         document.getElementById("email").value !== "" &&
         document.getElementById("email").value !== null &&
         document.getElementById("email").value !== "Required field" &&
-        document.getElementById("cvLabel").innerHTML !== "" &&
-        document.getElementById("mlLabel").innerHTML !== ""
+        (document.getElementById("cvLabel").value !== "" ||
+          document.getElementById("cvText").value !== "") &&
+        (document.getElementById("mlLabel").value !== "" ||
+          document.getElementById("mlText").value !== "")
       ) {
         axios
           .post("/apply/upload", formData, {
@@ -135,6 +138,7 @@ export default {
           })
           .then(function() {
             console.log("SUCCESS!!");
+            console.log(...formData); // to see which files have been sent by POST
           })
           .catch(function() {
             console.log("FAILURE!!");
@@ -144,7 +148,6 @@ export default {
           document
             .getElementById("email")
             .parentNode.classList.remove("active");
-
           document.getElementById("email").parentNode.classList.add("active");
           document.getElementById("email").value = "Required field";
         }
@@ -156,14 +159,15 @@ export default {
           document.getElementById("mlLabel").innerHTML = "Required field";
         }
       }
+      document.getElementById("cvUploadForm").reset();
+      this.showCV2();
+      this.showML2();
+      this.removeMlFile();
+      this.removeCvFile();
     },
-
-    /*
-        Handles a change on the file upload
-    */
+    // Handles a change on the file upload
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
-      console.log(this.file.name);
       this.cvNameShow();
       document.getElementById("cvLabel").innerHTML =
         "You Uploaded the file: " + this.file.name;
@@ -171,7 +175,6 @@ export default {
 
     handleFileUpload1() {
       this.file1 = this.$refs.file1.files[0];
-      console.log(this.file1.name);
       this.mlNameShow();
       document.getElementById("mlLabel").innerHTML =
         "You Uploaded the file: " + this.file1.name;
@@ -179,19 +182,15 @@ export default {
 
     handleEmail() {
       this.email = this.$refs.email;
-      console.log(this.email.value);
       document.getElementById("email").value = this.email.value;
     },
 
     handleMessage() {
       this.message = this.$refs.message;
-      console.log(this.message.value);
       document.getElementById("message").value = this.message.value;
     },
 
-    /*
-        Handles when the image clicked
-    */
+    // Handles when the image clicked
     openUploadFileDialogue() {
       document.getElementById("file").click();
     },
@@ -200,18 +199,15 @@ export default {
       document.getElementById("file1").click();
     },
 
-    /*
-        Removes a select file the user has uploaded
-    */
+    // Removes a select file the user has uploaded
     removeCvFile() {
       delete this.file;
       this.cvNameHide();
-      console.log(this.file);
     },
+
     removeMlFile() {
       delete this.file1;
       this.mlNameHide();
-      console.log(this.file1);
     },
 
     setActive(e) {
@@ -235,6 +231,7 @@ export default {
       x.style.display = "block";
     },
 
+    // Show & Hide CV CheckBox/Textarea section
     showCV2() {
       var checkBox = document.getElementById("cv2Check");
       var cvText = document.getElementById("cvText");
@@ -245,6 +242,7 @@ export default {
       }
     },
 
+    // Show & Hide ML CheckBox/Textarea section
     showML2() {
       var checkBox = document.getElementById("ml2Check");
       var mlText = document.getElementById("mlText");
@@ -302,161 +300,7 @@ export default {
   }
 };
 </script>
-
 <style lang="scss">
-.div1 {
-  display: flex;
-}
-#cvDiv2 {
-  display: grid;
-  grid-auto-flow: row;
-}
-#mlDiv2 {
-  display: grid;
-  grid-auto-flow: row;
-}
-.checkboxFour {
-  width: 40px;
-  height: 40px;
-  background: #ddd;
-  margin: 20px 90px;
-  margin-top: 40px;
-  margin-left: 15px;
-  border-radius: 100%;
-  position: relative;
-  box-shadow: 0px 1px 3px rgba(83, 81, 81, 0.5);
-}
-.checkboxFour label {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  border-radius: 100px;
-  transition: all 0.5s ease;
-  cursor: pointer;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  z-index: 1;
-  background: rgb(148, 144, 144);
-  box-shadow: inset 0px 1px 3px rgba(83, 81, 81, 0.5);
-}
-.checkboxFour input[type="checkbox"]:checked + label {
-  background: $color-purple;
-}
-textarea {
-  overflow: auto;
-  outline: none;
-  background-color: #e6e6e6;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid $color-purple;
-  border-radius: 5px;
-  margin-left: 60px;
-  font-size: 16px;
-}
-
-.inputCV {
-  display: inline-block;
-  position: relative;
-  border-bottom: 2px solid $color-purple;
-  margin: 25px 50px;
-  vertical-align: top;
-}
-.pText {
-  margin-top: $base-vertical-rithm * 10;
-  font-weight: bold;
-  font-size: 18px;
-  float: left;
-  margin-left: 100px;
-}
-.imageIcon {
-  width: 30px;
-  height: 30px;
-  margin: 10px;
-}
-#cv2Label {
-  font-size: 14px;
-}
-#cvLabel {
-  margin: $base-vertical-rithm * 10;
-  margin-bottom: $base-vertical-rithm * 2;
-  margin-left: 80px;
-  font-size: 16px;
-  line-height: 5px;
-  display: inline-block;
-}
-#mlLabel {
-  margin: $base-vertical-rithm * 10;
-  margin-bottom: $base-vertical-rithm * 2;
-  margin-left: 60px;
-  font-size: 16px;
-  line-height: 5px;
-  display: inline-block;
-}
-.uploadContainer {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-}
-.text {
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  background: transparent;
-  display: none;
-}
-.email-input {
-  border-bottom: 2px solid $color-purple;
-  font-size: 18px;
-  padding: 5px 5px 5px 5px;
-  display: block;
-  background: transparent;
-  margin-bottom: 20px;
-}
-.input-dev {
-  margin-left: 5%;
-}
-.input-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  font-size: 18px;
-  cursor: pointer;
-  position: relative;
-}
-.wrapper {
-  text-align: center;
-  width: 200px;
-  margin: 0 auto;
-  margin-top: 5 * $base-vertical-rithm;
-}
-
-.submit-button {
-  position: relative;
-  background-color: $color-purple;
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  margin: 0;
-  padding: 5%;
-  margin-top: 40px;
-  text-transform: uppercase;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  width: 100%;
-  text-transform: uppercase;
-  border: 0;
-  cursor: pointer;
-  position: relative;
-}
 .Apply {
   &__header {
     padding: $base-vertical-rithm * 10;
@@ -474,44 +318,11 @@ textarea {
       width: 55%;
       display: inline-block;
     }
-    &-dates {
-      margin-left: $base-vertical-rithm * 15;
-      margin-top: $base-vertical-rithm * 15;
-      width: 100%;
-      display: inline-block;
-      vertical-align: top;
-      div {
-        display: inline-block;
-        width: calc(25% - 20px);
-      }
-      h3 {
-        font-weight: bold;
-        color: $color-purple;
-      }
-      h4 {
-        color: $color-purple;
-        font-weight: bold;
-      }
-    }
-  }
-  &__content {
-    width: 70%;
-    margin: 0 auto;
-    h1 {
-      color: $color-purple;
-    }
-    ul li {
-      list-style: disc;
-    }
-    ul + p {
-      margin-top: 1rem;
-    }
   }
   &__form {
     width: 75%;
     margin-left: 2.5%;
     padding: $base-vertical-rithm * 10;
-
     p,
     h1 {
       margin-left: 50px;
@@ -528,142 +339,96 @@ textarea {
       font-weight: bold;
       font-size: 24px;
     }
-  }
-}
-.About {
-  &__header {
-    padding: $base-vertical-rithm * 5;
-    text-align: center;
 
-    a {
-      color: $color-purple;
-      font-weight: bold;
-      font-size: 32px;
-      line-height: 40px;
-      span:after {
-        bottom: -5px;
-      }
+    .imageIcon {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
     }
-    &-content {
-      display: inline-block;
-      width: 50%;
-      text-align: center;
-      padding: $base-vertical-rithm * 5;
-      & > div {
-        margin-top: $base-vertical-rithm * 2;
-      }
-    }
-    &-image {
-      width: 50%;
-      display: inline-block;
-      vertical-align: top;
-    }
-    &-dates {
-      margin-left: $base-vertical-rithm * 2;
-      margin-top: $base-vertical-rithm * 15;
-      width: 100%;
-      display: inline-block;
-      vertical-align: top;
-      div {
-        display: inline-block;
-        width: calc(25% - 20px);
-        margin-left: 2%;
-        margin-bottom: 3%;
-      }
-      h3 {
-        font-weight: bold;
-        color: $color-purple;
-      }
-      h4 {
-        color: $color-purple;
-        font-weight: bold;
-      }
-    }
-  }
-  &__content {
-    width: 100%;
-    margin: 0 auto;
-    h1 {
-      color: $color-purple;
-      line-height: 1;
-    }
-    ul li {
-      list-style: disc;
-    }
-    ul + p {
-      margin-top: 1rem;
-    }
-    p a {
+
+    .text {
       font-size: 18px;
-    }
-  }
-  &__description {
-    width: 100%;
-    margin: 0 auto;
-    h1 {
-      color: $color-purple;
-      line-height: 1;
-    }
-  }
-  &__container {
-    margin: 0 $base-vertical-rithm * 5;
-    h1 {
-      margin-bottom: $base-vertical-rithm * 5;
-      color: $color-purple;
-      font-weight: normal;
-      font-size: 42px;
-      line-height: 50px;
-    }
-    &.how {
-      margin-left: -50px;
-      .About__container-image {
-        margin-left: 0;
-      }
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      background: transparent;
+      display: none;
     }
 
-    &.who {
-      margin-right: -100px;
-      .About__container-image {
-        margin-right: 0;
-      }
-    }
-
-    &.footer {
-      .About__container-image {
-        margin-left: 25%;
-        width: 50%;
-      }
-    }
-
-    & > div {
+    #cvLabel {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      margin-left: 80px;
+      font-size: 16px;
+      line-height: 5px;
       display: inline-block;
-      width: calc(50% - 100px);
-      vertical-align: top;
-      margin: 50px;
-      a {
-        color: $color-purple;
-        font-weight: bold;
-        font-size: 32px;
-        line-height: 40px;
-        margin-bottom: 40px;
-        display: block;
-        span:after {
-          bottom: -5px;
-        }
-      }
     }
-  }
-  &__footer {
-    margin: 0 $base-vertical-rithm * 10;
-    a {
-      margin: 50px;
+
+    #mlLabel {
+      margin: $base-vertical-rithm * 10;
+      margin-bottom: $base-vertical-rithm * 2;
+      margin-left: 60px;
+      font-size: 16px;
+      line-height: 5px;
       display: inline-block;
-      font-weight: bold;
-      font-size: 30px;
-      line-height: 40px;
-      &:nth-child(2) {
-        margin-left: 25%;
-      }
+    }
+
+    .insideaDiv {
+      display: flex;
+    }
+
+    #cvDiv2 {
+      display: grid;
+      grid-auto-flow: row;
+    }
+
+    #mlDiv2 {
+      display: grid;
+      grid-auto-flow: row;
+    }
+
+    .checkboxFour {
+      width: 40px;
+      height: 40px;
+      background: #ddd;
+      margin: 20px 90px;
+      margin-top: 40px;
+      margin-left: 15px;
+      border-radius: 100%;
+      position: relative;
+      box-shadow: 0px 1px 3px rgba(83, 81, 81, 0.5);
+    }
+
+    .checkboxFour label {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 100px;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 1;
+      background: rgb(148, 144, 144);
+      box-shadow: inset 0px 1px 3px rgba(83, 81, 81, 0.5);
+    }
+
+    .checkboxFour input[type="checkbox"]:checked + label {
+      background: $color-purple;
+    }
+
+    textarea {
+      overflow: auto;
+      outline: none;
+      background-color: #e6e6e6;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 2px solid $color-purple;
+      border-radius: 5px;
+      margin-left: 60px;
+      font-size: 16px;
     }
   }
 }
