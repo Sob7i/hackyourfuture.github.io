@@ -58,7 +58,6 @@
                             <input type="message" id="message" ref="message" name="message" value="" v-on:change="handleMessage()" @focus="setActive">
                           </div>
 
-                           
                         <div class="apply-btn">
                             <input type="submit" value="Apply" v-on:click.prevent="submitFile" true>
                         </div>
