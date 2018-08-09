@@ -68,7 +68,6 @@ export default {
       message: ""
     };
   },
-
   mounted: function() {
     this.assiNameHide();
   },

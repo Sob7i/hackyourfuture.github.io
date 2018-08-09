@@ -92,7 +92,6 @@ export default {
       message: ""
     };
   },
-
   mounted: function() {
     this.cvNameHide();
     this.mlNameHide();
