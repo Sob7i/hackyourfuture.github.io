@@ -2,59 +2,71 @@
         <div>
         <Main class="Apply container">
             <div class="Apply__header">
-                <h1>Upload Your CV & Motivation Letter Here.</h1>
+                <h1>Upload CV and Motivation Letter!</h1>
                 <div class="Apply__header-image"></div> 
             </div>
-<div>Don't have a CV? Please click on the checkbox to let us know a few things about you. (Refresh the page if you clicked by mistake!)
-  
-<!-- <input type="radio" name="radio" value="Yes" id="cvYes" v-on:click="showCvDiv()"> YES -->
-  
-<input type="radio" name="radio" value="No" id="cvNo" v-on:click="showCvText()"> I have no CV.
-    
- </div>
+
             <div class="Apply__form form">
                 <form>
                     <fieldset>   
-
                         <div id="cvDiv">
-                            <P><img src="http://www.iconarchive.com/show/ios7-icons-by-icons8/User-Interface-Plus-icon.html" v-on:click="openUploadFileDialogue()"  class="imageIcon" align="middle" />Click the Icon to Upload Your CV (*)</P>                           
-                            <input type="file" class="input text" id="file" ref="file" v-on:change="handleFileUpload()" />
-                            <div id="cvLabel" class="full-width text"></div>
+                            <P><img src="/gallery/06.jpg" v-on:click="openUploadFileDialogue()" disabled class="imageIcon" align="middle" />Upload Your CV (*)</P>                           
+                            <input type="file" class="text" id="file" ref="file" v-on:change="handleFileUpload()" />
+                            <div id="cvName"><span id="cvLabel"></span>
+                            <img src="/gallery/07.jpg" class="imageIcon" @click="removeCvFile()" />                          
+                            </div>
                         </div>
 
-                      
+                        <div id="cvDiv2">
+                          <div class="div1">
+                          <p class="cv2Lable">If you don't have a CV:</p>
+                              <div class="checkboxFour">
+                              <input type="checkbox" value="" id="cv2Check" name="check" v-on:click="showCV2()" style="margin-top: 5px;>" />
+                              <label for="cv2Check"></label>
+                            </div>
+                            </div>
+                          <textarea id="cvText" rows="4" cols="50" placeholder="Your information"></textarea>
+                        </div>
+
                          <div id="mlDiv">
-                            <P><img src="http://www.iconarchive.com/show/ios7-icons-by-icons8/User-Interface-Plus-icon.html" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Click the Icon to Upload Your Motivation Letter (*)</P>                           
-                            <input type="file" class="input text" id="file1" ref="file1" v-on:change="handleFileUpload1()" />
-                            <div id="mlLabel" class="full-width text"></div>
+                            <P><img src="/gallery/06.jpg" v-on:click="openUploadFileDialogue1()"  class="imageIcon" align="middle" />Upload Your Motivation Letter (*)</P>                           
+                            <input type="file" class="text" id="file1" ref="file1" v-on:change="handleFileUpload1()" />
+                            <div id="mlName"><span id="mlLabel"></span>
+                            <img src="/gallery/07.jpg" class="imageIcon" @click="removeMlFile()"/>                                                         
+                            </div>
+                        </div>
+                        
+                        <div id="mlDiv2">
+                          <div class="div1">
+                          <p class="ml2Lable">If you don't have a Motivation letter:</p>
+                              <div class="checkboxFour">
+                              <input type="checkbox" value="" id="ml2Check" name="check" v-on:click="showML2()"  style="margin-top: 5px;>" />
+                              <label for="ml2Check"></label>
+                              </div>
+                              </div>
+                          <textarea id="mlText" rows="4" cols="50" placeholder="Your information"></textarea>
                         </div>
 
                         <div class="half-width inputContainer">
-                            <label for="email">Click to enter e-mail(*)</label>
+                            <label for="email">e-mail (*)</label>
                             <input type="email" id="email" ref="email" class="input" name="email" value="" v-on:change="handleEmail()" @focus="setActive">
                         </div>
 
                       
                           <div class="full-width inputContainer">
-                            <label for="message">Click to add additional info and/or work experience.</label>
+                            <label for="message">What would you like to contact us about?</label>
                             <input type="message" id="message" ref="message" name="message" value="" v-on:change="handleMessage()" @focus="setActive">
                           </div>
 
-                        <div class="Apply__header">
-                        <h6>NOTE: (*) indicates compulsory field.</h6>
-            </div>
-
+                           
                         <div class="apply-btn">
                             <input type="submit" value="Apply" v-on:click.prevent="submitFile">
                         </div>
-                       
                     </fieldset>
                 </form>
             </div>
-          </Main>
-               
-            </div>
-
+            </Main>
+          </div>
 </template>
 
 <script>
@@ -63,23 +75,11 @@ import Upload from "~/components/upload/upload";
 
 export default {
   async asyncData() {
-    // let description;
-    //  let dates;
-
     try {
-      //   let req = await axios.get("/content/en/upload/upload.json");
-      //    let req1 = await axios.get("/content/en/apply/apply-dates.json"); // im
-      // description = req.data.body;
-      // dates = req1.data.body;
-    } catch (e) {
-      // description = false;
-      // dates = false;
-    }
+    } catch (e) {}
     return {
       formUrlApply: process.env.lambdaUrl + "apply/upload",
       siteKey: "6LfsWVAUAAAAAE5mdeB0ICRoDDkWJd00vr9NEZ3I"
-      // description: description ? description : null,
-      // dates: dates ? dates : null
     };
   },
 
@@ -98,9 +98,10 @@ export default {
 
   mounted: function() {
     console.log("Hi the Page Loaded Successfully!");
-    // this.hideMlDiv();
-    // this.hideCvDiv();
-    // this.hideCvText();
+    this.cvNameHide();
+    this.mlNameHide();
+    this.cvTextHide();
+    this.mlTextHide();
   },
 
   methods: {
@@ -140,11 +141,10 @@ export default {
           });
       } else {
         if (document.getElementById("email").value === "") {
-          if (document.getElementById("email").value === "") {
-            document
-              .getElementById("email")
-              .parentNode.classList.remove("active");
-          }
+          document
+            .getElementById("email")
+            .parentNode.classList.remove("active");
+
           document.getElementById("email").parentNode.classList.add("active");
           document.getElementById("email").value = "Required field";
         }
@@ -164,13 +164,17 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
       console.log(this.file.name);
-      document.getElementById("cvLabel").innerHTML = this.file.name;
+      this.cvNameShow();
+      document.getElementById("cvLabel").innerHTML =
+        "You Uploaded the file: " + this.file.name;
     },
 
     handleFileUpload1() {
       this.file1 = this.$refs.file1.files[0];
       console.log(this.file1.name);
-      document.getElementById("mlLabel").innerHTML = this.file1.name;
+      this.mlNameShow();
+      document.getElementById("mlLabel").innerHTML =
+        "You Uploaded the file: " + this.file1.name;
     },
 
     handleEmail() {
@@ -188,7 +192,6 @@ export default {
     /*
         Handles when the image clicked
     */
-
     openUploadFileDialogue() {
       document.getElementById("file").click();
     },
@@ -196,11 +199,19 @@ export default {
     openUploadFileDialogue1() {
       document.getElementById("file1").click();
     },
+
     /*
         Removes a select file the user has uploaded
     */
-    removeFile(key) {
-      this.file.splice(key, 1);
+    removeCvFile() {
+      delete this.file;
+      this.cvNameHide();
+      console.log(this.file);
+    },
+    removeMlFile() {
+      delete this.file1;
+      this.mlNameHide();
+      console.log(this.file1);
     },
 
     setActive(e) {
@@ -212,45 +223,175 @@ export default {
       e.target.parentNode.classList.add("active");
     },
 
+    //Hide CV section
     hideCvDiv() {
       var x = document.getElementById("cvDiv");
-
       x.style.display = "none";
     },
-    // showCvDiv() {
-    //   this.hideCvText();
-    //   var x = document.getElementById("cvDiv");
-    //   x.style.display = "block";
-    // },
 
+    //Show CV section
+    showCvDiv() {
+      var x = document.getElementById("cvDiv");
+      x.style.display = "block";
+    },
+
+    showCV2() {
+      var checkBox = document.getElementById("cv2Check");
+      var cvText = document.getElementById("cvText");
+      if (checkBox.checked == true) {
+        cvText.style.display = "block";
+      } else {
+        cvText.style.display = "none";
+      }
+    },
+
+    showML2() {
+      var checkBox = document.getElementById("ml2Check");
+      var mlText = document.getElementById("mlText");
+      if (checkBox.checked == true) {
+        mlText.style.display = "block";
+      } else {
+        mlText.style.display = "none";
+      }
+    },
+    //Hide ML section
     hideMlDiv() {
       var x = document.getElementById("mlDiv");
-
       x.style.display = "none";
     },
 
-    hideCvText() {
-      var x = document.getElementById("cvText");
-      x.style.display = "none";
-    },
-    showCvText() {
-      this.hideCvDiv();
-      var x = document.getElementById("cvText");
+    //Show ML section
+    showMlDiv() {
+      var x = document.getElementById("mlDiv");
       x.style.display = "block";
+    },
+
+    //Show Cv filename
+    cvNameShow() {
+      this.cvNameHide();
+      var x = document.getElementById("cvName");
+      x.style.display = "block";
+    },
+    //Hide CV filename
+    cvNameHide() {
+      var x = document.getElementById("cvName");
+      x.style.display = "none";
+    },
+
+    cvTextHide() {
+      var x = document.getElementById("cvText");
+      x.style.display = "none";
+    },
+
+    mlTextHide() {
+      var x = document.getElementById("mlText");
+      x.style.display = "none";
+    },
+
+    //Show ML filename
+    mlNameShow() {
+      this.mlNameHide();
+      var x = document.getElementById("mlName");
+      x.style.display = "block";
+    },
+    //Hide ML filename
+    mlNameHide() {
+      var x = document.getElementById("mlName");
+      x.style.display = "none";
     }
   }
 };
 </script>
 
 <style lang="scss">
+.div1 {
+  display: flex;
+}
+#cvDiv2 {
+  display: grid;
+  grid-auto-flow: row;
+}
+#mlDiv2 {
+  display: grid;
+  grid-auto-flow: row;
+}
+.checkboxFour {
+  width: 40px;
+  height: 40px;
+  background: #ddd;
+  margin: 20px 90px;
+  margin-top: 40px;
+  margin-left: 15px;
+  border-radius: 100%;
+  position: relative;
+  box-shadow: 0px 1px 3px rgba(83, 81, 81, 0.5);
+}
+.checkboxFour label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  background: rgb(148, 144, 144);
+  box-shadow: inset 0px 1px 3px rgba(83, 81, 81, 0.5);
+}
+.checkboxFour input[type="checkbox"]:checked + label {
+  background: $color-purple;
+}
+textarea {
+  overflow: auto;
+  outline: none;
+  background-color: #e6e6e6;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid $color-purple;
+  border-radius: 5px;
+  margin-left: 60px;
+  font-size: 16px;
+}
+
+.inputCV {
+  display: inline-block;
+  position: relative;
+  border-bottom: 2px solid $color-purple;
+  margin: 25px 50px;
+  vertical-align: top;
+}
 .pText {
   margin-top: $base-vertical-rithm * 10;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
+  float: left;
+  margin-left: 100px;
 }
 .imageIcon {
-  width: 80px;
-  height: 80px;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+#cv2Label {
+  font-size: 14px;
+}
+#cvLabel {
+  margin: $base-vertical-rithm * 10;
+  margin-bottom: $base-vertical-rithm * 2;
+  margin-left: 80px;
+  font-size: 16px;
+  line-height: 5px;
+  display: inline-block;
+}
+#mlLabel {
+  margin: $base-vertical-rithm * 10;
+  margin-bottom: $base-vertical-rithm * 2;
+  margin-left: 60px;
+  font-size: 16px;
+  line-height: 5px;
+  display: inline-block;
 }
 .uploadContainer {
   padding: 0;
@@ -270,26 +411,51 @@ export default {
   display: none;
 }
 .email-input {
-  background-color: lightgray;
-  text-align: center;
-  display: inline-block;
-  margin: auto;
-  width: 25%;
-  padding: 0;
+  border-bottom: 2px solid $color-purple;
+  font-size: 18px;
+  padding: 5px 5px 5px 5px;
+  display: block;
+  background: transparent;
+  margin-bottom: 20px;
 }
-
+.input-dev {
+  margin-left: 5%;
+}
+.input-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
 .wrapper {
   text-align: center;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 5 * $base-vertical-rithm;
 }
 
-.button {
+.submit-button {
   position: relative;
-  background-color: lightgray;
-  color: black;
-  font-size: 18px;
+  background-color: $color-purple;
+  color: white;
+  font-size: 22px;
   font-weight: bold;
   margin: 0;
+  padding: 5%;
   margin-top: 40px;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  width: 100%;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  position: relative;
 }
 .Apply {
   &__header {
@@ -391,6 +557,52 @@ export default {
       width: 50%;
       display: inline-block;
       vertical-align: top;
+    }
+    &-dates {
+      margin-left: $base-vertical-rithm * 2;
+      margin-top: $base-vertical-rithm * 15;
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      div {
+        display: inline-block;
+        width: calc(25% - 20px);
+        margin-left: 2%;
+        margin-bottom: 3%;
+      }
+      h3 {
+        font-weight: bold;
+        color: $color-purple;
+      }
+      h4 {
+        color: $color-purple;
+        font-weight: bold;
+      }
+    }
+  }
+  &__content {
+    width: 100%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul + p {
+      margin-top: 1rem;
+    }
+    p a {
+      font-size: 18px;
+    }
+  }
+  &__description {
+    width: 100%;
+    margin: 0 auto;
+    h1 {
+      color: $color-purple;
+      line-height: 1;
     }
   }
   &__container {
